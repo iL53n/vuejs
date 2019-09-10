@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Vuejs
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = javascript_pack_tag 'hello_vue'
+    = stylesheet_pack_tag 'application'
+
+  body
+  .container
+    .row
+      .col-lg-9
+        = bootstrap_flash
+        = yield
