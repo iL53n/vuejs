@@ -35,12 +35,13 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim'
 gem 'webpacker', '~> 4.x'
-gem 'twitter-bootstrap-rails'
 gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do

@@ -1,0 +1,7 @@
+h1= 'Clients/welcome/index'
+
+p=link_to 'Root', root_path
+p=link_to 'SignIn', new_client_session_path
+p=link_to 'SignOut', destroy_client_session_path
+
+= javascript_pack_tag 'users/clients_vue'

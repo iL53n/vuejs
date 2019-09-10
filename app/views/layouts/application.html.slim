@@ -12,5 +12,9 @@ html
   .container
     .row
       .col-lg-9
-        = bootstrap_flash
+        .notice
+          p= notice
+        .alert
+          p= alert
+
         = yield
