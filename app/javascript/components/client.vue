@@ -1,14 +1,14 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
-  </div>
+    <div id="app">
+        <p>{{ message }}</p>
+    </div>
 </template>
 
 <script>
   export default {
     data: function () {
       return {
-        message: "Hello VueJS!"
+        message: "Client App"
       }
     }
   }
@@ -16,7 +16,7 @@
 
 <style scoped>
 p {
-  font-size: 2em;
-  text-align: center;
+    font-size: 2em;
+    text-align: center;
 }
 </style>

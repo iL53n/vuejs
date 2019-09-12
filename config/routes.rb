@@ -1,19 +1,14 @@
 Rails.application.routes.draw do
+  root to: 'application#index'
 
-  devise_for :clients
-  devise_for :staffs
+  devise_for :client, controllers: { sessions: 'client/sessions' }
+  devise_for :staff, controllers: { sessions: 'staff/sessions' }
 
-  root 'application#index'
-
-  namespace :users do
-    namespace :clients do
-      root to: 'welcome#index'
-    end
+  namespace :client do
+    root to: 'welcome#index'
   end
 
-  namespace :users do
-    namespace :staffs do
-      root to: 'welcome#index'
-    end
+  namespace :staff do
+    root to: 'welcome#index'
   end
 end
