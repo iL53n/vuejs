@@ -17,6 +17,9 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+  p {
+      background: #5ac055; /*test*/
+  }
 
 </style>
