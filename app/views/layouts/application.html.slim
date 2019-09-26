@@ -5,16 +5,16 @@ html
     = csrf_meta_tags
     = csp_meta_tag
 
-    = javascript_pack_tag 'hello_vue'
+    = javascript_pack_tag 'application'
     = stylesheet_pack_tag 'application'
 
   body
-  .container
-    .row
-      .col-lg-9
-        .notice
-          p= notice
-        .alert
-          p= alert
 
-        = yield
+    .container
+      .row
+        .col-lg-9
+          .notice
+            p= notice
+          .alert
+            p= alert
+          = yield

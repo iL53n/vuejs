@@ -6,6 +6,4 @@ document.addEventListener('DOMContentLoaded', () => {
     render: h => h(Staff)
   }).$mount()
   document.body.appendChild(app.$el)
-
-  console.log(app)
 })

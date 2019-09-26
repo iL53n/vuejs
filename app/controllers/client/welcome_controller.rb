@@ -3,4 +3,8 @@ class Client::WelcomeController < ApplicationController
   before_action :authenticate_client!, only: :index
 
   def index; end
+
+  def user
+    @user = current_client
+  end
 end

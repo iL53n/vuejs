@@ -1,22 +1,43 @@
 <template>
-    <div id="app">
-        <p>{{ message }}</p>
-    </div>
+  <div>
+    <navbar :user=user :key=user.id @sign-out="signOut"></navbar>
+  </div>
 </template>
 
 <script>
+  import Navbar from './navbar'
+  import axios from 'axios'
+
   export default {
-    data: function () {
+    data () {
       return {
-        message: "Client App"
+        user: ''
       }
+    },
+    created() {
+      let vm = this
+      axios.get('/client/user')
+        .then(function (response) {
+          vm.user = response.data.user
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+    },
+    methods: {
+      signOut() {
+        // this.user.signout
+      }
+    },
+    components: {
+      Navbar
     }
   }
 </script>
 
-<style scoped>
-p {
-    font-size: 2em;
-    text-align: center;
-}
+<style>
 </style>

@@ -1,9 +1,9 @@
-h1= 'Client/welcome/index'
-
-- if client_signed_in?
-  p= current_client.email
-  p=link_to 'SignOut', destroy_client_session_path, method: :delete
-
-  p=link_to 'Root', root_path
+/ h1= 'Client/welcome/index'
+/
+/ - if client_signed_in?
+/   p= current_client.email
+/   p=link_to 'SignOut', destroy_client_session_path, method: :delete
+/
+/   p=link_to 'Root', root_path
 
 = javascript_pack_tag 'client'
