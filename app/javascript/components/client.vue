@@ -1,7 +1,7 @@
-<template>
-  <div>
-    <navbar :user=user :key=user.id @sign-out="signOut"></navbar>
-  </div>
+<template lang="pug">
+  div
+    navbar(:user="user" :key="user.id")
+    p {{ message }}
 </template>
 
 <script>
@@ -11,12 +11,13 @@
   export default {
     data () {
       return {
-        user: ''
+        user: '',
+        message: '>>>>>>CLIENT VUE<<<<<<'
       }
     },
     created() {
       let vm = this
-      axios.get('/client/user')
+      axios.get('/client/welcome/user')
         .then(function (response) {
           vm.user = response.data.user
         })
@@ -29,9 +30,6 @@
         });
     },
     methods: {
-      signOut() {
-        // this.user.signout
-      }
     },
     components: {
       Navbar
@@ -39,5 +37,5 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 </style>

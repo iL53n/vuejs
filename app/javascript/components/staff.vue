@@ -1,22 +1,41 @@
-<template>
-  <div>
-    <p>{{ message }}</p>
-  </div>
+<template lang="pug">
+  div
+    navbar(:user="user" :key="user.id")
+    p {{ message }}
 </template>
 
 <script>
+  import Navbar from './navbar'
+  import axios from 'axios'
+
   export default {
-    data: function () {
+    data () {
       return {
-        message: "Staff app"
+        user: '',
+        message: '>>>>>>STAFF VUE<<<<<<'
       }
+    },
+    created() {
+      let vm = this
+      axios.get('/staff/welcome/user')
+              .then(function (response) {
+                vm.user = response.data.user
+              })
+              .catch(function (error) {
+                // handle error
+                console.log(error);
+              })
+              .finally(function () {
+                // always executed
+              });
+    },
+    methods: {
+    },
+    components: {
+      Navbar
     }
   }
 </script>
 
-<style scoped>
-p {
-    font-size: 2em;
-    text-align: center;
-}
+<style lang="scss">
 </style>

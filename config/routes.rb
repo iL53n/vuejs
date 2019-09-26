@@ -6,11 +6,15 @@ Rails.application.routes.draw do
 
   namespace :client do
     root to: 'welcome#index'
-    get :user, to: 'welcome#user'
+    resources :welcome, only: :index do
+      get :user, on: :collection
+    end
   end
 
   namespace :staff do
     root to: 'welcome#index'
-    get :user, to: 'welcome#user'
+    resources :welcome, only: :index do
+      get :user, on: :collection
+    end
   end
 end
