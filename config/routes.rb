@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     root to: 'welcome#index'
     resources :welcome, only: :index do
       get :user, on: :collection
+      get :clients, on: :collection
     end
   end
 
