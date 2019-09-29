@@ -4,18 +4,20 @@
             h3 {{ message }}
             tr
                 th ID
-                th FullName
+                th Full name
                 th Phone
                 th Email
             tr(v-for="client in clientList")
                 td {{ client.id }}
-                td
-                td
+                td {{ client.fullname }}
+                td {{ client.phone }}
                 td {{ client.email }}
+        Createclient
 </template>
 
 <script>
   import { backendGet } from '../api/index'
+  import Createclient from './create_client'
 
   export default {
     data () {
@@ -30,7 +32,7 @@
     methods: {
       fetchClients() {
         let vm = this;
-        backendGet('/client/welcome/clients')
+        backendGet('/staff/clients')
             .then(function (response) {
               vm.clientList = response.data.clients
             })
@@ -40,6 +42,9 @@
             .finally(function () {
             });
       }
+    },
+    components: {
+      Createclient
     }
   }
 </script>
@@ -55,11 +60,11 @@
     th {
         padding: 10px;
         color: white;
-        background-color: lightslategrey;
+        background-color: royalblue;
     }
 
     td {
         padding: 10px;
-        background-color: #e3e4f5;
+        background-color: #e5e5e5;
     }
 </style>

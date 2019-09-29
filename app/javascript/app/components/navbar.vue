@@ -2,6 +2,7 @@
   ul
     li(href="/")
       img(src="../images/LogoSC.png" alt="ServiseCentr" width="300")
+
     a {{ user.email }}
         br
         a(class="button", href="client/sign_out", data-method="delete") SignOut

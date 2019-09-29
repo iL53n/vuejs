@@ -7,7 +7,7 @@
         div(v-else)
             navbar(:user="user" :key="user.id")
             p {{ message }}
-            dashboard
+            Dashboard
 </template>
 
 <script>

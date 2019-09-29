@@ -6,8 +6,8 @@
       p Error!
     div(v-else)
       navbar(:user="user" :key="user.id")
-      p {{ message }}
       dashboard
+      p {{ message }}
 </template>
 
 <script>
@@ -29,7 +29,6 @@
     },
     methods: {
       fetchUser() {
-        this.loading = false
         let vm = this;
         backendGet('/staff/welcome/user')
             .then(function (response) {
