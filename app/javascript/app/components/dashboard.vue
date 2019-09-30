@@ -7,17 +7,17 @@
                 th Full name
                 th Phone
                 th Email
-            tr(v-for="client in clientList")
-                td {{ client.id }}
-                td {{ client.fullname }}
-                td {{ client.phone }}
-                td {{ client.email }}
-        Createclient
+                tr(v-for="client in clientList" :key="client.id" :client="client")
+                    td {{ client.id }}
+                    td {{ client.fullname }}
+                    td {{ client.phone }}
+                    td {{ client.email }}
+        CreateClient(@add-client="fetchClients")
 </template>
 
 <script>
   import { backendGet } from '../api/index'
-  import Createclient from './create_client'
+  import CreateClient from './create_client'
 
   export default {
     data () {
@@ -31,20 +31,22 @@
     },
     methods: {
       fetchClients() {
-        let vm = this;
         backendGet('/staff/clients')
-            .then(function (response) {
-              vm.clientList = response.data.clients
+            .then((response) => {
+              this.clientList = response.data.clients
             })
-            .catch(function (error) {
+            .catch((error) => {
               console.log(error);
             })
-            .finally(function () {
+            .finally(() => {
             });
-      }
+      },
+        create() {
+          this.clientList.push(client)
+        }
     },
     components: {
-      Createclient
+      CreateClient
     }
   }
 </script>

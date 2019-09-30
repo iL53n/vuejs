@@ -13,8 +13,6 @@
 			| Email
 			input(v-model="client.email", type="text" required="")
 		label
-			| Password
-			input(v-model="client.password", type="text" required="")
 		button(@click="addClient", class="button") Create new client
 </template>
 
@@ -27,28 +25,26 @@
         client: {
           fullname: '',
           phone: '',
-          email: '',
-          password: '11111111'
+          email: ''
         },
         errors: {}
       }
     },
     methods: {
       addClient() {
-        let vm = this;
-        backendPost('/staff/clients', vm.client)
-					.then(response => {
+        backendPost('/staff/clients', this.client)
+					.then((response) => {
 						if (response.data.errors) {
-							vm.errors = response.data.errors;
+							this.errors = response.data.errors;
 						} else {
-							// this.$emit('reloadClientList');
+              this.$emit('add-client');
 							this.client = {};
 							this.errors = {};
 						}
 					})
-					// .catch(function (error) {
-					// 	console.log(error);
-					// });
+					.catch((error) => {
+						console.log(error);
+					});
       }
     }
   }
