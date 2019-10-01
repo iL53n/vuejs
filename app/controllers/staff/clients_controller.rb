@@ -16,10 +16,6 @@ class Staff::ClientsController < ApplicationController
 		end
 	end
 
-	def user
-		@user = current_client
-	end
-
 	private
 
 	def client_params
