@@ -21,7 +21,7 @@
         loading: true,
         error: false,
         user: '',
-        message: '>>>>>>STAFF VUE<<<<<<'
+        message: ''
       }
     },
     created() {
@@ -31,14 +31,14 @@
       fetchUser() {
         let vm = this;
         backendGet('/staff/welcome/user')
-            .then(function (response) {
+            .then((response) => {
               vm.user = response.data.user
             })
-            .catch(function (error) {
+            .catch((error) => {
               console.log(error);
               this.error = true
             })
-            .finally(function () {
+            .finally(() => {
               vm.loading = false
             });
       },

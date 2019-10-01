@@ -7,7 +7,6 @@
         div(v-else)
             navbar(:user="user" :key="user.id")
             p {{ message }}
-            Dashboard
 </template>
 
 <script>
@@ -21,7 +20,7 @@
         loading: true,
         error: false,
         user: '',
-        message: '>>>>>>CLIENT VUE<<<<<<'
+        message: '>>> Client Vue <<<'
       }
     },
     created() {
@@ -32,21 +31,20 @@
         this.loading = false
         let vm = this;
         backendGet('/client/welcome/user')
-            .then(function (response) {
+            .then((response) => {
               vm.user = response.data.user
             })
-            .catch(function (error) {
+            .catch((error) => {
               console.log(error);
               this.error = true
             })
-            .finally(function () {
+            .finally(() => {
               vm.loading = false
             });
       },
     },
     components: {
-      Navbar,
-      Dashboard
+      Navbar
     }
   }
 </script>

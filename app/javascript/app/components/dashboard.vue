@@ -41,9 +41,6 @@
             .finally(() => {
             });
       },
-        create() {
-          this.clientList.push(client)
-        }
     },
     components: {
       CreateClient

@@ -1,6 +1,6 @@
 class Client::WelcomeController < ApplicationController
   include Accessible
-  # before_action :authenticate_client!, except: :clients
+  before_action :authenticate_client!
 
   def index; end
 

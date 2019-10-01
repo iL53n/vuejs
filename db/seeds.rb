@@ -14,6 +14,9 @@ Client.create(email: 'client2@test.com',
               fullname: 'Sergey Sergeev',
               phone: '+375170000002',
               password: '12345678')
-s = Client.new(email: 'client3@test.com', fullname: 'Petr Petrov', phone: '+375170000003', password: '12345678')
+Client.create(email: 'client3@test.com',
+              fullname: 'Petr Petrov',
+              phone: '+375170000003',
+              password: '12345678')
 
 Staff.create(email: 'staff@test.com', password: '12345678')

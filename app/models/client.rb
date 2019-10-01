@@ -7,6 +7,6 @@ class Client < ApplicationRecord
   private
 
   def set_password
-    self.password = SecureRandom.urlsafe_base64
+    self.password ||= SecureRandom.urlsafe_base64
   end
 end

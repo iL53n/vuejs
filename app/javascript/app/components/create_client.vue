@@ -1,22 +1,29 @@
 <template lang="pug">
-	fieldset
-		legend
-			b Create new client
-		label
-			br
-			| Full name
-			input(v-model="client.fullname", type="text" required="")
-		label
-			| Phone
-			input(v-model="client.phone", type="text" required="")
-		label
-			| Email
-			input(v-model="client.email", type="text" required="")
-		label
-		button(@click="addClient", class="button") Create new client
+  div
+    fieldset
+      #message {{ message }}
+      legend
+        b Create new client
+      label
+        br
+        | Full name
+        input(v-model="client.fullname", type="text" placeholder="Minimum 5 characters")
+      label
+        br
+        | Phone
+        input(v-model="client.phone", type="text" placeholder="Minimum 10 characters, only numbers")
+      label
+        br
+        | Email
+        input(v-model="client.email", type="text" placeholder="friend@tut.com")
+      button(@click="addClient", class="button", :disabled='disabled') Create new client
 </template>
 
 <script>
+  const regexFullname = /^[A-z А-яЁё]{5,}$/;
+  const regexPhone = /^[0-9]{10,}$/;
+  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   import { backendPost } from '../api/index'
 
   export default {
@@ -27,8 +34,29 @@
           phone: '',
           email: ''
         },
-        errors: {}
+        errors: {},
+        message: '',
+        disabled: true
       }
+    },
+    watch: {
+      client: {
+        handler() {
+          this.disabled = !(this.isValidFullname && this.isValidPhone && this.isValidEmail);
+        },
+        deep: true
+      },
+    },
+    computed: {
+      isValidFullname() {
+        return regexFullname.test(this.client.fullname);
+      },
+      isValidPhone() {
+        return regexPhone.test(this.client.phone);
+      },
+      isValidEmail() {
+        return regexEmail.test(this.client.email);
+      },
     },
     methods: {
       addClient() {
@@ -59,11 +87,11 @@
 		border: 1px solid #c6c7cc;
 		border-radius: 5px;
 		overflow: hidden;
-		width: 140px;
+		width: 300px;
 	}
 
 	input[type=text] {
-		width: auto;
+		width: 300px;
 		padding: 10px;
 		margin: 5px 0 12px 0;
 		display: inline-block;
@@ -75,4 +103,17 @@
 		background-color: #ddd;
 		outline: none;
 	}
+
+  #message {
+    color: #dd0c0c;
+    font-size: small;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+    background-color: lightgrey;
+    color: white;
+    border: 1px lightgrey;
+  }
 </style>
