@@ -5,7 +5,7 @@
     div(v-if="error")
       p Error!
     div(v-else)
-      navbar(:user="user" :key="user.id")
+      navbar(:user="user" userClass="staff" :key="user.id")
       dashboard
       p {{ message }}
 </template>

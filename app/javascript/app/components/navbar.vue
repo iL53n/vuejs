@@ -7,12 +7,12 @@
 
       a {{ user.email }}
           br
-          a(class="button", href="client/sign_out", data-method="delete") SignOut
+          a(class="button", :href="'/' + userClass + '/sign_out'" data-method="delete") SignOut
 </template>
 
 <script>
   export default {
-    props: ['user'],
+    props: ['user', 'userClass'],
     methods: {
     }
   }

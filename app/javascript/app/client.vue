@@ -1,12 +1,12 @@
 <template lang="pug">
-    div(v-if="loading")
-        p Loading...
+  div(v-if="loading")
+    p Loading...
+  div(v-else)
+    div(v-if="error")
+      p Error!
     div(v-else)
-        div(v-if="error")
-            p Error!
-        div(v-else)
-            navbar(:user="user" :key="user.id")
-            p {{ message }}
+      navbar(:user="user" userClass="client" :key="user.id")
+      p {{ message }}
 </template>
 
 <script>

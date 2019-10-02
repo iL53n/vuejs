@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   namespace :client do
     root to: 'welcome#index'
-    resources :welcome, only: %i[index create] do
+    resources :welcome, only: :index do
       get :user, on: :collection
     end
   end
