@@ -28,7 +28,7 @@
     },
     methods: {
       fetchUser() {
-        this.loading = false
+        this.loading = false;
         let vm = this;
         backendGet('/client/welcome/user')
             .then((response) => {

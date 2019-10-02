@@ -1,18 +1,18 @@
 <template lang="pug">
-    div
-        table
-            h3 {{ message }}
-            tr
-                th ID
-                th Full name
-                th Phone
-                th Email
-                tr(v-for="client in clientList" :key="client.id" :client="client")
-                    td {{ client.id }}
-                    td {{ client.fullname }}
-                    td {{ client.phone }}
-                    td {{ client.email }}
-        CreateClient(@add-client="fetchClients")
+  div
+    table
+      h3 {{ message }}
+      tr
+        th ID
+        th Full name
+        th Phone
+        th Email
+        tr(v-for="client in clientList" :key="client.id" :client="client")
+          td {{ client.id }}
+          td {{ client.fullname }}
+          td {{ client.phone }}
+          td {{ client.email }}
+    CreateClient(@add-client="fetchClients")
 </template>
 
 <script>

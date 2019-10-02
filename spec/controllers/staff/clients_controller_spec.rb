@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Staff::ClientsController, type: :controller do
-
   describe 'GET #index' do
     let(:staff) { create(:staff) }
     let(:clients) { create_list(:client, 3) }

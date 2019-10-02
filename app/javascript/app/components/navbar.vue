@@ -6,8 +6,8 @@
           img(src="../images/LogoSC.png" alt="ServiseCentr" width="300")
 
       a {{ user.email }}
-          br
-          a(class="button", :href="'/' + userClass + '/sign_out'" data-method="delete") SignOut
+        br
+        a(class="button", :href="'/' + userClass + '/sign_out'" data-method="delete") SignOut
 </template>
 
 <script>
@@ -49,6 +49,7 @@
         -webkit-transition-duration: 0.4s;
         transition-duration: 0.4s;
     }
+
     .button:hover {
         background-color: royalblue;
         color: white;

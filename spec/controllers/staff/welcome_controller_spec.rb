@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Staff::WelcomeController, type: :controller do
-
   describe 'GET #index' do
     context 'if current_staff' do
       before { login(create(:staff)) }

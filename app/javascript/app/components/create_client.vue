@@ -9,7 +9,7 @@
       label="Phone"
         input(v-model="client.phone", type="text" placeholder="Minimum 10 characters, only numbers")
       label="Email"
-          input(v-model="client.email", type="text" placeholder="friend@tut.com")
+        input(v-model="client.email", type="text" placeholder="friend@tut.com")
       button(@click="addClient", class="button", :disabled='disabled') Create new client
 </template>
 

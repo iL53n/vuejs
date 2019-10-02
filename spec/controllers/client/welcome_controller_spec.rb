@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Client::WelcomeController, type: :controller do
-
   describe 'GET #index' do
     context 'if current_client' do
       before { login(create(:client)) }

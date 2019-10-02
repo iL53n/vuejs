@@ -1,6 +1,6 @@
 class Staff::ClientsController < ApplicationController
   before_action :authenticate_staff!
-	skip_before_action :verify_authenticity_token, only: :create
+  skip_before_action :verify_authenticity_token, only: :create
 
 	def index
 		render json: Client.all
