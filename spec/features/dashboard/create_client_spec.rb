@@ -7,6 +7,7 @@ feature 'Staff can create new client', %q{
 } do
 
   given(:staff) { create(:staff) }
+  given!(:client) { create(:client) }
 
   describe 'Current user == staff', js: true do
     background do
@@ -30,11 +31,31 @@ feature 'Staff can create new client', %q{
       end
     end
 
-    scenario 'try create a new client with invalid attr' do
-      fill_in 'Full name', with: 'aaa'
-      fill_in 'Phone', with: 'bbb'
-      fill_in 'Email', with: 'ccc'
-      expect(page).to have_button 'Create new client', disabled: true
+    context 'try create a new client with' do
+      scenario 'invalid attr' do
+        ['Full name', 'Phone', 'Email'].each do |field|
+          fill_in field, with: 'xxx'
+          expect(page).to have_button 'Create new client', disabled: true
+        end
+      end
+
+      scenario 'already registered email' do
+        fill_in 'Full name', with: 'Valid name'
+        fill_in 'Phone', with: '1234567890'
+        fill_in 'Email', with: client.email
+        click_on 'Create new client'
+
+        expect(page).to have_content 'has already been taken'
+        expect(page).to have_button 'Create new client', disabled: true
+
+        fill_in 'Email', with: 'newtest@test.com'
+        expect(page).to_not have_content 'has already been taken'
+        click_on 'Create new client'
+
+        within 'table' do
+          expect(page).to have_content 'newtest@test.com'
+        end
+      end
     end
   end
 end

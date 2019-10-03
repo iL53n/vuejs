@@ -1,15 +1,21 @@
 <template lang="pug">
   div
     fieldset
-      #message {{ message }}
       legend
         b Create new client
+
       label="Full name"
+        span.error(v-for="error in errors.fullname") ( {{ error }} )
         input(v-model="client.fullname", type="text" placeholder="Minimum 5 characters")
+
       label="Phone"
+        span.error(v-for="error in errors.phone") ( {{ error }} )
         input(v-model="client.phone", type="text" placeholder="Minimum 10 characters, only numbers")
+
       label="Email"
+        span.error(v-for="error in errors.email") ( {{ error }} )
         input(v-model="client.email", type="text" placeholder="friend@tut.com")
+
       button(@click="addClient", class="button", :disabled='disabled') Create new client
 </template>
 
@@ -36,6 +42,7 @@
     watch: {
       client: {
         handler() {
+          this.errors = {};
           this.disabled = !(this.isValidFullname && this.isValidPhone && this.isValidEmail);
         },
         deep: true
@@ -56,16 +63,13 @@
       addClient() {
         backendPost('/staff/clients', this.client)
 					.then((response) => {
-						if (response.data.errors) {
-							this.errors = response.data.errors;
-						} else {
-              this.$emit('add-client');
-							this.client = {};
-							this.errors = {};
-						}
+            this.$emit('add-client');
+            this.client = {};
+            this.errors = {};
 					})
 					.catch((error) => {
-						console.log(error);
+					  this.disabled = true;
+            this.errors = error.response.data.errors;
 					});
       }
     }
@@ -98,7 +102,7 @@
 		outline: none;
 	}
 
-  #message {
+  .error {
     color: #dd0c0c;
     font-size: small;
   }

@@ -5,13 +5,12 @@
     div(v-if="error")
       p Error!
     div(v-else)
-      navbar(:user="user" userClass="client" :key="user.id")
+      navmenu(:user="user" userClass="client" :key="user.id")
       p {{ message }}
 </template>
 
 <script>
-  import Navbar from './components/navbar'
-  import Dashboard from './components/dashboard'
+  import Navmenu from './components/navbar'
   import { backendGet } from './api/index'
 
   export default {
@@ -19,7 +18,7 @@
       return {
         loading: true,
         error: false,
-        user: '',
+        user: {},
         message: '>>> Client Vue <<<'
       }
     },
@@ -44,7 +43,7 @@
       },
     },
     components: {
-      Navbar
+      Navmenu
     }
   }
 </script>
