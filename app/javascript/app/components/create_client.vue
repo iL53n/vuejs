@@ -50,9 +50,7 @@
     },
     computed: {
       isValidFullname() {
-        if(this.client.fullname) {
-          return regexFullname.test(this.client.fullname);
-        }
+        return regexFullname.test(this.client.fullname);
       },
       isValidPhone() {
         return regexPhone.test(this.client.phone);
@@ -66,7 +64,7 @@
         backendPost('/staff/clients', this.client)
 					.then((response) => {
             this.$emit('add-client');
-            this.client = {};
+            this.client = { fullname: '' };
             this.errors = {};
 					})
 					.catch((error) => {

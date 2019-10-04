@@ -22,7 +22,7 @@ RSpec.describe Staff::WelcomeController, type: :controller do
   end
 
   describe 'GET #user' do
-    let(:staff) { create(:staff) }
+    let!(:staff) { create(:staff) }
     let(:request_params) { { method: :get, action: :user, format: :json } }
     before { login(staff) }
 
