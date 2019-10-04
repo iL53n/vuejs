@@ -50,7 +50,9 @@
     },
     computed: {
       isValidFullname() {
-        return regexFullname.test(this.client.fullname);
+        if(this.client.fullname) {
+          return regexFullname.test(this.client.fullname);
+        }
       },
       isValidPhone() {
         return regexPhone.test(this.client.phone);
