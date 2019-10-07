@@ -1,6 +1,6 @@
 <template lang="pug">
   div(v-if="loading")
-    p Loading...
+    q-spinner(color="primary" size="3em" :thickness="10")
   div(v-else)
     div(v-if="error")
       p Error!
