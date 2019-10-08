@@ -12,7 +12,7 @@
 
 <script>
   import Navmenu from './components/navbar'
-  import Dashboard from './components/dashboard'
+  // import Dashboard from './components/dashboard'
   import { backendGet } from './api/index'
 
   export default {
@@ -44,8 +44,8 @@
       },
     },
     components: {
-      Navmenu,
-      Dashboard
+      Navmenu
+      // Dashboard
     }
   }
 </script>

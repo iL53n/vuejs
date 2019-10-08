@@ -20,3 +20,16 @@ Client.create(email: 'client3@test.com',
               password: '12345678')
 
 Staff.create(email: 'staff@test.com', password: '12345678')
+
+Organization.create(title: 'Organization_1',
+                    form_of_owership: 'JSC',
+                    tax_number: 123456789,
+                    reg_number: 1234567890123)
+Organization.create(title: 'Organization_2',
+                    form_of_owership: 'JSC',
+                    tax_number: 223456789,
+                    reg_number: 2234567890123)
+Organization.create(title: 'Organization_3',
+                    form_of_owership: 'JSC',
+                    tax_number: 323456789,
+                    reg_number: 3234567890123)

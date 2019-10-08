@@ -1,5 +1,5 @@
 class Organization < ApplicationRecord
-  validates :title, :type, :tax_number, :reg_number, presence: true
+  validates :title, :form_of_owership, :tax_number, :reg_number, presence: true
   validates :title, :tax_number, :reg_number, uniqueness: { case_sensitive: false }
   validates :tax_number, :reg_number, numericality: { only_integer: true }
   validates :tax_number, length: { is: 9 }
