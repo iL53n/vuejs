@@ -82,11 +82,11 @@ Vue.use(Quasar, {
   plugins: {
   },
   iconSet: iconSet
-})
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     render: h => h(Staff)
-  }).$mount()
+  }).$mount();
   document.body.appendChild(app.$el)
-})
+});

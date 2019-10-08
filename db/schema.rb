@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(version: 2019_10_08_122356) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "title", null: false
-    t.string "type", null: false
-    t.integer "tax_number", null: false
-    t.integer "reg_number", null: false
+    t.string "form_of_owership", null: false
+    t.bigint "tax_number", null: false
+    t.bigint "reg_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
