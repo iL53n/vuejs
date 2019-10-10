@@ -16,8 +16,8 @@
 </template>
 
 <script>
-  import { backendGet } from '../api/index'
-  import CreateClient from './create_client'
+  import { backendGet } from '../../api'
+  import CreateClient from '../forms/create_client'
 
   export default {
     data () {
