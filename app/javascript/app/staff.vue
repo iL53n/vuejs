@@ -5,20 +5,21 @@
     div(v-if="error")
       p Error!
     div(v-else)
-      navmenu(:user="user" userClass="staff" :key="user.id")
-      dashboard
-      p {{ message }}
+      Header
+      //Navmenu(:user="user" userClass="staff" :key="user.id")
+      //DashboardOrganizations
 </template>
 
 <script>
   import Navmenu from './components/navbar'
-  // import Dashboard from './components/dashboard'
+  import Header from './components/header'
+  import DashboardOrganizations from './components/dashboard_organizations'
   import { backendGet } from './api/index'
 
   export default {
     data () {
       return {
-        loading: true,
+        loading: false,
         error: false,
         user: {},
         message: ''
@@ -44,8 +45,9 @@
       },
     },
     components: {
-      Navmenu
-      // Dashboard
+      Navmenu,
+      Header,
+      DashboardOrganizations,
     }
   }
 </script>

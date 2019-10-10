@@ -39,7 +39,7 @@
         text-decoration: none;
     }
 
-    .button {
+    button {
         border: 2px solid royalblue;
         border-radius: 3px;
         background-color: white;

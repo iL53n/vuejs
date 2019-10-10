@@ -107,11 +107,11 @@
     font-size: small;
   }
 
-  button:disabled {
-    cursor: not-allowed;
-    pointer-events: all !important;
-    background-color: lightgrey;
-    color: white;
-    border: 1px lightgrey;
-  }
+  /*button:disabled {*/
+  /*  cursor: not-allowed;*/
+  /*  pointer-events: all !important;*/
+  /*  background-color: lightgrey;*/
+  /*  color: white;*/
+  /*  border: 1px lightgrey;*/
+  /*}*/
 </style>
