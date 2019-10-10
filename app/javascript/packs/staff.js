@@ -35,7 +35,11 @@ import {
   QCard,
   QCardSection,
   QCardActions,
-  QForm
+  QForm,
+  QSlideTransition,
+  QToggle,
+  QSpinner,
+  QField
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -71,7 +75,11 @@ Vue.use(Quasar, {
     QCard,
     QCardSection,
     QCardActions,
-    QForm
+    QForm,
+    QSlideTransition,
+    QToggle,
+    QSpinner,
+    QField
   },
   directives: {
   },

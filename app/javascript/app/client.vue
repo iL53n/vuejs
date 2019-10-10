@@ -10,7 +10,6 @@
 </template>
 
 <script>
-  import Navmenu from './components/navbar'
   import { backendGet } from './api/index'
 
   export default {

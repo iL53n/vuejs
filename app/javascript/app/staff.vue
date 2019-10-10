@@ -1,20 +1,21 @@
 <template lang="pug">
-  div(v-if="loading")
-    q-spinner(color="primary" size="3em" :thickness="10")
-  div(v-else)
-    div(v-if="error")
-      p Error!
-    div(v-else)
-      Header
-      //Navmenu(:user="user" userClass="staff" :key="user.id")
-      //DashboardOrganizations
+  div(class="q-pa-md")
+    q-layout(view="lhh lpR lff" container style="height: 95vh" class="shadow-10 rounded-borders")
+          Header
+          q-page-container
+            q-page(padding style="padding-top: 66px")
+
+              DashboardOrganizations
+
+            q-page-scroller(position="bottom")
+              q-btn(fab icon="keyboard_arrow_up" color="red")
+          Footer
 </template>
 
 <script>
-  import Navmenu from './components/navbar'
-  import Header from './components/header'
-  import DashboardOrganizations from './components/dashboard_organizations'
-  import { backendGet } from './api/index'
+  import Header from './components/common/header'
+  import DashboardOrganizations from './components/dashboards/dashboard_organizations'
+  import Footer from './components/common/footer'
 
   export default {
     data () {
@@ -25,29 +26,10 @@
         message: ''
       }
     },
-    created() {
-      this.fetchUser();
-    },
-    methods: {
-      fetchUser() {
-        let vm = this;
-        backendGet('/staff/welcome/user')
-            .then((response) => {
-              vm.user = response.data.user
-            })
-            .catch((error) => {
-              console.log(error);
-              this.error = true
-            })
-            .finally(() => {
-              vm.loading = false
-            });
-      },
-    },
     components: {
-      Navmenu,
       Header,
       DashboardOrganizations,
+      Footer
     }
   }
 </script>
