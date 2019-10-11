@@ -7,6 +7,10 @@ import '@quasar/extras/fontawesome-v5/fontawesome-v5.css'
 import {
   Quasar,
   QLayout,
+  QList,
+  QItemSection,
+  QItemLabel,
+  QItem,
   QHeader,
   QFooter,
   QTab,
@@ -40,7 +44,8 @@ import {
   QToggle,
   QSpinner,
   QField,
-  QDialog
+  QDialog,
+  QEditor
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -48,6 +53,10 @@ Vue.use(Quasar, {
   components: {
     Quasar,
     QLayout,
+    QList,
+    QItemSection,
+    QItemLabel,
+    QItem,
     QHeader,
     QFooter,
     QTab,
@@ -81,7 +90,8 @@ Vue.use(Quasar, {
     QToggle,
     QSpinner,
     QField,
-    QDialog
+    QDialog,
+    QEditor
   },
   directives: {
   },
