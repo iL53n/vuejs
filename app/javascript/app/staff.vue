@@ -1,21 +1,21 @@
 <template lang="pug">
   div(class="q-pa-md")
     q-layout(view="lhh lpR lff" container style="height: 95vh" class="shadow-10 rounded-borders")
-          Header
+          header-component
           q-page-container
             q-page(padding style="padding-top: 66px")
 
-              DashboardOrganizations
+              dashboard-organizations
 
             q-page-scroller(position="bottom")
               q-btn(fab icon="keyboard_arrow_up" color="red")
-          Footer
+          footer-component
 </template>
 
 <script>
-  import Header from './components/common/header'
+  import HeaderComponent from './components/common/header'
   import DashboardOrganizations from './components/dashboards/dashboard_organizations'
-  import Footer from './components/common/footer'
+  import FooterComponent from './components/common/footer'
 
   export default {
     data () {
@@ -27,9 +27,9 @@
       }
     },
     components: {
-      Header,
+      HeaderComponent,
       DashboardOrganizations,
-      Footer
+      FooterComponent
     }
   }
 </script>

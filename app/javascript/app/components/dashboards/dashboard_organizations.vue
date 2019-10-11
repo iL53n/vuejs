@@ -11,13 +11,13 @@
           q-toolbar(class="bg-secondary text-white")
             q-toolbar-title(align="middle")
               | Организации
-        q-pa-md
+        .q-pa-md
           q-table(name="organizations", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации об организациях!")
             template(v-slot:body-cell-delete="props")
               q-td(:props="props")
                 q-btn(push color="white" text-color="primary" label="Удалить"  @click="deleteOrganization(props.row.id)" method="delete")
 
-          CreateOrganization(@add-organization="fetchOrganizations")
+          create-organization(@add-organization="fetchOrganizations")
 </template>
 
 <script>
