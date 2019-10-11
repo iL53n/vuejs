@@ -39,7 +39,8 @@ import {
   QSlideTransition,
   QToggle,
   QSpinner,
-  QField
+  QField,
+  QDialog
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -79,7 +80,8 @@ Vue.use(Quasar, {
     QSlideTransition,
     QToggle,
     QSpinner,
-    QField
+    QField,
+    QDialog
   },
   directives: {
   },

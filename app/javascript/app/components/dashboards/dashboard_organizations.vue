@@ -1,7 +1,8 @@
 <template lang="pug">
   div
     div(v-if="loading")
-      q-spinner(color="primary" size="5em" :thickness="10")
+      q-page-container(align="middle")
+        q-spinner(color="primary" size="7em" :thickness="10")
     div(v-else)
       div(v-if="error")
         p Error!
@@ -14,7 +15,7 @@
           q-table(name="organizations", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации об организациях!")
             template(v-slot:body-cell-delete="props")
               q-td(:props="props")
-                q-btn(push color="white" text-color="primary" label="Удалить" @click="deleteOrganization(props.row.id)" method="delete")
+                q-btn(push color="white" text-color="primary" label="Удалить"  @click="deleteOrganization(props.row.id)" method="delete")
 
           CreateOrganization(@add-organization="fetchOrganizations")
 </template>
