@@ -24,7 +24,7 @@
   const regexPhone = /^[0-9]{10,}$/;
   const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  import { backendPost } from '../api/index'
+  import { backendPost } from '../../api'
 
   export default {
     data() {
@@ -50,9 +50,7 @@
     },
     computed: {
       isValidFullname() {
-        if(this.client.fullname) {
-          return regexFullname.test(this.client.fullname);
-        }
+        return regexFullname.test(this.client.fullname);
       },
       isValidPhone() {
         return regexPhone.test(this.client.phone);
@@ -66,7 +64,7 @@
         backendPost('/staff/clients', this.client)
 					.then((response) => {
             this.$emit('add-client');
-            this.client = {};
+            this.client = { fullname: '' };
             this.errors = {};
 					})
 					.catch((error) => {
@@ -109,11 +107,11 @@
     font-size: small;
   }
 
-  button:disabled {
-    cursor: not-allowed;
-    pointer-events: all !important;
-    background-color: lightgrey;
-    color: white;
-    border: 1px lightgrey;
-  }
+  /*button:disabled {*/
+  /*  cursor: not-allowed;*/
+  /*  pointer-events: all !important;*/
+  /*  background-color: lightgrey;*/
+  /*  color: white;*/
+  /*  border: 1px lightgrey;*/
+  /*}*/
 </style>

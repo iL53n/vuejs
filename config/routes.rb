@@ -15,8 +15,9 @@ Rails.application.routes.draw do
     root to: 'welcome#index'
     resources :welcome, only: :index do
       get :user, on: :collection
-		end
+    end
 
     resources :clients, only: %i[index create]
-	end
+    resources :organizations, only: %i[index create destroy]
+  end
 end

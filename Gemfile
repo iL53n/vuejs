@@ -6,6 +6,7 @@ ruby '2.6.3'
 gem 'active_model_serializers'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'coffee-rails', '~> 4.2'
+gem 'database_cleaner'
 gem 'devise'
 gem 'jbuilder', '~> 2.5'
 gem 'oj'

@@ -1,0 +1,2 @@
+module Staff::OrganizationsHelper
+end
