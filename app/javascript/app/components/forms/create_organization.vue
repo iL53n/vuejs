@@ -58,6 +58,7 @@
 
 <script>
   import { backendPost } from '../../api'
+  import { Notify } from 'quasar'
 
   export default {
     data() {
@@ -92,9 +93,13 @@
         backendPost('/staff/organizations', this.organization)
 					.then((response) => {
             this.$emit('add-organization');
+            Notify.create({
+              message: "Организация '" + this.organization.title + "' создана!",
+              color: 'positive'
+            });
             this.organization = {
               title: '',
-              form_of_owership: ''
+              form_of_owership: '',
             };
             this.errors = {};
             this.visible = false;
@@ -115,9 +120,12 @@
         this.$refs.tax_number.validate()
         this.$refs.reg_number.validate()
       }
+    },
+    components: {
+      Notify
     }
   }
 </script>
 
-<style lang="scss">
+<style lang="stylus" scoped>
 </style>

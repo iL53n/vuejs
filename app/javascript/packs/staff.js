@@ -45,7 +45,9 @@ import {
   QSpinner,
   QField,
   QDialog,
-  QEditor
+  QEditor,
+  Notify,
+  Ripple
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -94,8 +96,10 @@ Vue.use(Quasar, {
     QEditor
   },
   directives: {
+    Ripple
   },
   plugins: {
+    Notify
   },
   iconSet: iconSet
 });
