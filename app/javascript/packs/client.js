@@ -38,6 +38,8 @@ import {
   QScrollArea,
   QDialog,
   ClosePopup,
+  Notify,
+  Ripple
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -75,11 +77,13 @@ Vue.use(Quasar, {
     QIcon,
     QScrollArea,
     QDialog,
-    ClosePopup,
+    ClosePopup
   },
   directives: {
+    Ripple
   },
   plugins: {
+    Notify
   },
   iconSet: iconSet
 });
