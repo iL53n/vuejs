@@ -15,7 +15,7 @@
           q-table(name="organizations", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации об организациях!")
             template(v-slot:body-cell-delete="props")
               q-td(:props="props")
-                q-btn(push color="white" text-color="primary" label="Удалить"  @click="deleteOrganization(props.row.id)" method="delete")
+                q-btn(push color="white" text-color="primary" label="Удалить"  @click="deleteOrganization(props.row)" method="delete")
 
           create-organization(@add-organization="fetchOrganizations")
 </template>
@@ -24,6 +24,7 @@
   import { backendGet } from '../../api'
   import { backendDelete } from '../../api'
   import CreateOrganization from '../forms/create_organization'
+  import { Notify } from 'quasar'
 
   export default {
     data () {
@@ -59,10 +60,14 @@
               this.loading = false
             });
       },
-      deleteOrganization(id) {
-        backendDelete('/staff/organizations/', id)
+      deleteOrganization(obj) {
+        backendDelete('/staff/organizations/', obj.id)
           .then((response) => {
             this.fetchOrganizations();
+            Notify.create({
+              message: "Организация '" + obj.title + "' удалена!",
+              color: 'negative'
+            })
           })
           .catch((error) => {
             console.log(error);
@@ -71,7 +76,8 @@
       },
     },
     components: {
-      CreateOrganization
+      CreateOrganization,
+      Notify
     }
   }
 </script>
