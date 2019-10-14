@@ -1,13 +1,14 @@
-<!--<template lang="pug">-->
-<!--  div(v-if="loading")-->
-<!--    p Loading...-->
-<!--  div(v-else)-->
-<!--    div(v-if="error")-->
-<!--      p Error!-->
-<!--    div(v-else)-->
-<!--      navmenu(:user="user" userClass="client" :key="user.id")-->
-<!--      p {{ message }}-->
-<!--</template>-->
+<template lang="pug">
+  h1 Hello
+  //div(v-if="loading")
+    //p Loading...
+  //div(v-else)
+    div(v-if="error")
+      p Error!
+    div(v-else)
+      navmenu(:user="user" userClass="client" :key="user.id")
+      p {{ message }}
+</template>
 
 <!--<script>-->
 <!--  import { backendGet } from './api/index'-->

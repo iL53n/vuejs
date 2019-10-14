@@ -12,9 +12,9 @@
             a(:href="'/' + userClass + '/sign_out'" data-method="delete") Выйти
 
       q-tabs(align="left")
-        q-tab(name="root" label="Главная")
+        q-route-tab(to="/" name="root" label="Главная")
         q-tab(name="organizations" label="Организации")
-        q-tab(name="clients" label="Клиенты")
+        q-route-tab(to="/clients" name="clients" label="Клиенты")
         q-tab(name="staffs" label="Сотрудники")
 </template>
 

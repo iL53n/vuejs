@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Staff from '../app/staff.vue'
 
+import router from '../../router'
+
 import '../app/styles/quasar.styl'
 import iconSet from 'quasar/icon-set/fontawesome-v5.js'
 import '@quasar/extras/fontawesome-v5/fontawesome-v5.css'
@@ -15,6 +17,7 @@ import {
   QFooter,
   QTab,
   QTabs,
+  QRouteTab,
   QTabPanel,
   QTabPanels,
   QDrawer,
@@ -63,6 +66,7 @@ Vue.use(Quasar, {
     QFooter,
     QTab,
     QTabs,
+    QRouteTab,
     QTabPanel,
     QTabPanels,
     QDrawer,
@@ -106,7 +110,8 @@ Vue.use(Quasar, {
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
-    render: h => h(Staff)
+    render: h => h(Staff),
+    router
   }).$mount();
   document.body.appendChild(app.$el)
 });
