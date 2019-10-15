@@ -9,40 +9,17 @@
               q-card-section(class="q-gutter-y-md column")
                 q-input(
                   filled
-                  ref="fullname"
-                  label="Имя *"
-                  placeholder="Введите полное имя"
-                  v-model="client.fullname"
-                  type="text"
-                  lazy-rules
-                  :rules="[val => val !== null && val !== '' || 'Имя не может быть пустым']"
-                  :dense="dense"
-                  )
-                q-input(
-                  filled
-                  ref="phone"
-                  label="Телефон *"
-                  placeholder="Номер телефона"
-                  v-model="client.phone"
-                  mask="+375(##)###-##-##"
-                  hint="+375(##)###-##-##"
-                  lazy-rules
-                  :rules="[val => val && val.length == 17 || 'Слишком короткий номер']"
-                  :dense="dense"
-                  )
-                q-input(
-                  filled
                   ref="email"
                   label="Email *"
                   placeholder="Электронная почта"
-                  v-model="client.email"
+                  v-model="staff.email"
                   type="email"
                   lazy-rules
                   :rules="[val => val !== null && val !== '' || 'Email может быть пустым']"
                   :dense="dense"
                   )
 
-                q-btn(label="СОЗДАТЬ" @click="addClient" type="submit" color="primary")
+                q-btn(label="СОЗДАТЬ" @click="addStaff" type="submit" color="primary")
 </template>
 
 <script>
@@ -52,9 +29,7 @@
   export default {
     data() {
       return {
-        client: {
-          fullname: '',
-          phone: '',
+        staff: {
           email: ''
         },
         errors: {},
@@ -68,20 +43,18 @@
     computed: {
     },
     methods: {
-      addClient() {
-        backendPost('/staff/clients', this.client)
+      addStaff() {
+        backendPost('/staff/staffs', this.staff)
 					.then((response) => {
-            this.$emit('add-client');
+            this.$emit('add-staff');
             Notify.create({
-              message: "Клиент '" + this.client.fullname + "' создан!",
+              message: "Сотрудник '" + this.staff.email + "' создан!",
               color: 'positive'
             });
-            this.client = { fullname: '' };
+            this.staff = { email: '' };
             this.errors = {};
             this.visible = false;
 
-            this.$refs.fullname.resetValidation()
-            this.$refs.phone.resetValidation()
             this.$refs.email.resetValidation()
 					})
 					.catch((error) => {
@@ -90,8 +63,6 @@
 					});
       },
       onSubmit() {
-        this.$refs.fullname.validate()
-        this.$refs.phone.validate()
         this.$refs.email.validate()
       }
     },

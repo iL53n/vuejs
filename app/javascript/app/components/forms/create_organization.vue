@@ -10,7 +10,7 @@
                 q-input(
                   filled
                   ref="title"
-                  label="Название"
+                  label="Название *"
                   placeholder="Оффициальное наименование"
                   v-model="organization.title"
                   type="text"
@@ -21,7 +21,7 @@
                 q-input(
                   filled
                   ref="form_of_owership"
-                  label="Форма собственности"
+                  label="Форма собственности *"
                   placeholder="ЗАО, ОАО, ..."
                   v-model="organization.form_of_owership"
                   type="text"
@@ -33,22 +33,27 @@
                   filled
                   ref="tax_number"
                   label="ИНН"
-                  placeholder="Номер налогоплательщика"
+                  placeholder="Номер налогоплательщика *"
                   v-model="organization.tax_number"
-                  type="number"
+                  mask="##########"
                   lazy-rules
                   :rules="[val => val && val.length == 9 || 'Должен состоять из 9 цифр']"
+                  counter
+                  maxlength="9"
                   :dense="dense"
                   )
+
                 q-input(
                   filled
                   ref="reg_number"
                   label="ОГРН"
-                  placeholder="Регистрационный номер"
+                  placeholder="Регистрационный номер *"
                   v-model="organization.reg_number"
-                  type="number"
+                  mask="##############"
                   lazy-rules
                   :rules="[val => val && val.length == 13 || 'Должен состоять из 13 цифр']"
+                  counter
+                  maxlength="13"
                   :dense="dense"
                   )
 

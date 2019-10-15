@@ -12,10 +12,10 @@
             a(:href="'/' + userClass + '/sign_out'" data-method="delete") Выйти
 
       q-tabs(align="left")
-        q-route-tab(to="/" name="root" label="Главная")
-        q-tab(name="organizations" label="Организации")
+        //q-route-tab(to="/index" name="root" label="Главная")
+        q-route-tab(to="/organizations" name="organizations" label="Организации")
         q-route-tab(to="/clients" name="clients" label="Клиенты")
-        q-tab(name="staffs" label="Сотрудники")
+        q-route-tab(to="/staffs" name="staffs" label="Сотрудники")
 </template>
 
 <script>
@@ -37,7 +37,7 @@
     methods: {
       fetchUser() {
         let vm = this;
-        backendGet('/staff/welcome/user')
+        backendGet('/staff/index/user')
             .then((response) => {
               vm.user = response.data.user
             })

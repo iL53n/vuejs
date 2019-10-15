@@ -5,19 +5,22 @@ Rails.application.routes.draw do
   devise_for :staff, controllers: { sessions: 'staff/sessions' }
 
   namespace :client do
-    root to: 'welcome#index'
-    resources :welcome, only: :index do
+    root to: 'index#index'
+    resources :index, only: :index do
       get :user, on: :collection
     end
   end
 
   namespace :staff do
-    root to: 'welcome#index'
-    resources :welcome, only: :index do
+    root to: 'index#index'
+    resources :index, only: :index do
       get :user, on: :collection
     end
 
-    resources :clients, only: %i[index create]
+    resources :clients, only: %i[index create destroy]
+    resources :staffs, only: %i[index create destroy]
     resources :organizations, only: %i[index create destroy]
   end
+
+  get '/*slug', to: 'staff/organizations#index'
 end

@@ -1,6 +1,6 @@
 class Staff::ClientsController < ApplicationController
   before_action :authenticate_staff!
-  skip_before_action :verify_authenticity_token, only: :create
+  skip_before_action :verify_authenticity_token
 
   def index
     render json: Client.all
@@ -14,6 +14,11 @@ class Staff::ClientsController < ApplicationController
     else
       render json: { errors: @client.errors }, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @client = Client.find(params[:id])
+    @client.destroy
   end
 
   private

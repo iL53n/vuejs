@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Staff::WelcomeController, type: :controller do
+RSpec.describe Client::IndexController, type: :controller do
   describe 'GET #index' do
-    context 'if current_staff' do
-      before { login(create(:staff)) }
+    context 'if current_client' do
+      before { login(create(:client)) }
 
       it 'return 2xx' do
         get :index
@@ -11,8 +11,8 @@ RSpec.describe Staff::WelcomeController, type: :controller do
       end
     end
 
-    context 'if current_client' do
-      before { login(create(:client)) }
+    context 'if current_staff' do
+      before { login(create(:staff)) }
 
       it 'return 3xx' do
         get :index
@@ -22,9 +22,9 @@ RSpec.describe Staff::WelcomeController, type: :controller do
   end
 
   describe 'GET #user' do
-    let!(:staff) { create(:staff) }
+    let(:client) { create(:client) }
     let(:request_params) { { method: :get, action: :user, format: :json } }
-    before { login(staff) }
+    before { login(client) }
 
     it 'return 2xx' do
       do_request(request_params)
@@ -34,7 +34,7 @@ RSpec.describe Staff::WelcomeController, type: :controller do
     it 'return user' do # ToDo
       do_request(request_params)
 
-      expect(response.to_json).to eq Staff.last.to_json
+      expect(response.to_json).to eq Client.last.to_json
     end
   end
 end

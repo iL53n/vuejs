@@ -1,4 +1,4 @@
-class Staff::WelcomeController < ApplicationController
+class Staff::IndexController < ApplicationController
   include Accessible
 
   before_action :authenticate_staff!, only: :index

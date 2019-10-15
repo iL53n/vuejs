@@ -10,20 +10,20 @@
         q-page-sticky(expand position="top")
           q-toolbar(class="bg-secondary text-white")
             q-toolbar-title(align="middle")
-              | Организации
+              | Сотрудники
         .q-pa-md
-          q-table(name="organizations", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации об организациях!")
+          q-table(name="Clients", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации о сотрудниках!")
             template(v-slot:body-cell-delete="props")
               q-td(:props="props")
-                q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteOrganization(props.row)" method="delete")
+                q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteStaff(props.row)" method="delete")
 
-          create-organization(@add-organization="fetchOrganizations")
+          create-staff(@add-staff="fetchStaffs")
 </template>
 
 <script>
   import { backendGet } from '../../api'
   import { backendDelete } from '../../api'
-  import CreateOrganization from '../forms/create_organization'
+  import CreateStaff from '../forms/create_staff'
   import { Notify } from 'quasar'
 
   export default {
@@ -31,10 +31,7 @@
       return {
         columns: [
           { name: 'id', align: 'center', label: 'ID', field: 'id', sortable: true },
-          { name: 'title', align: 'center', label: 'Наименование', field: 'title', sortable: true },
-          { name: 'form_of_owership', label: 'Форма собственности', field: 'form_of_owership', sortable: true },
-          { name: 'tax_number', label: 'ИНН', field: 'tax_number', sortable: true },
-          { name: 'reg_number', label: 'ОГРН', field: 'reg_number', sortable: true },
+          { name: 'email', label: 'Email', field: 'email', sortable: true },
           { name: 'delete', field: 'delete' }
         ],
         data: [],
@@ -44,13 +41,13 @@
       error: {}
     },
     created() {
-      this.fetchOrganizations();
+      this.fetchStaffs();
     },
     methods: {
-      fetchOrganizations() {
-        backendGet('/staff/organizations')
+      fetchStaffs() {
+        backendGet('/staff/staffs')
             .then((response) => {
-              this.data = response.data.organizations
+              this.data = response.data.staffs
             })
             .catch((error) => {
               console.log(error);
@@ -60,12 +57,12 @@
               this.loading = false
             });
       },
-      deleteOrganization(obj) {
-        backendDelete('/staff/organizations/', obj.id)
+      deleteStaff(obj) {
+        backendDelete('/staff/staffs/', obj.id)
           .then((response) => {
-            this.fetchOrganizations();
+            this.fetchStaffs();
             Notify.create({
-              message: "Организация '" + obj.title + "' удалена!",
+              message: "Сотрудник '" + obj.email + "' удален!",
               color: 'negative'
             })
           })
@@ -76,7 +73,7 @@
       },
     },
     components: {
-      CreateOrganization,
+      CreateStaff,
       Notify
     }
   }

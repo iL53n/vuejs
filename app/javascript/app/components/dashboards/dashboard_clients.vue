@@ -1,69 +1,82 @@
 <template lang="pug">
   div
-    table
-      h3 {{ message }}
-      tr
-        th ID
-        th Full name
-        th Phone
-        th Email
-        tr(v-for="client in clientList" :key="client.id" :client="client")
-          td {{ client.id }}
-          td {{ client.fullname }}
-          td {{ client.phone }}
-          td {{ client.email }}
-    CreateClient(@add-client="fetchClients")
+    div(v-if="loading")
+      q-page-container(align="middle")
+        q-spinner(color="primary" size="7em" :thickness="10")
+    div(v-else)
+      div(v-if="error")
+        p Error!
+      div(v-else)
+        q-page-sticky(expand position="top")
+          q-toolbar(class="bg-secondary text-white")
+            q-toolbar-title(align="middle")
+              | Клиенты
+        .q-pa-md
+          q-table(name="clients", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации о клиентах!")
+            template(v-slot:body-cell-delete="props")
+              q-td(:props="props")
+                q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteClient(props.row)" method="delete")
+
+          create-client(@add-client="fetchClients")
 </template>
 
 <script>
   import { backendGet } from '../../api'
+  import { backendDelete } from '../../api'
   import CreateClient from '../forms/create_client'
+  import { Notify } from 'quasar'
 
   export default {
     data () {
       return {
-        clientList: [],
-        message: 'All clients'
+        columns: [
+          { name: 'id', align: 'center', label: 'ID', field: 'id', sortable: true },
+          { name: 'fullname', align: 'center', label: 'Полное имя', field: 'fullname', sortable: true },
+          { name: 'phone', label: 'Телефон', field: 'phone', sortable: true },
+          { name: 'email', label: 'Email', field: 'email', sortable: true },
+          { name: 'delete', field: 'delete' }
+        ],
+        data: [],
+        title: '',
+        loading: true,
       }
+      error: {}
     },
     created() {
-      this.fetchClients()
+      this.fetchClients();
     },
     methods: {
       fetchClients() {
         backendGet('/staff/clients')
             .then((response) => {
-              this.clientList = response.data.clients
+              this.data = response.data.clients
             })
             .catch((error) => {
               console.log(error);
+              this.error = true
             })
             .finally(() => {
+              this.loading = false
             });
+      },
+      deleteClient(obj) {
+        backendDelete('/staff/clients/', obj.id)
+          .then((response) => {
+            this.fetchClients();
+            Notify.create({
+              message: "Клиент '" + obj.fullname + "' удален!",
+              color: 'negative'
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+            this.error = true
+          });
       },
     },
     components: {
-      CreateClient
+      CreateClient,
+      Notify
     }
   }
 </script>
-
-<style lang="scss">
-    table {
-        list-style-type: none;
-        margin: 20px;
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        border-spacing: 2px;
-    }
-
-    th {
-        padding: 10px;
-        color: white;
-        background-color: royalblue;
-    }
-
-    td {
-        padding: 10px;
-        background-color: #e5e5e5;
-    }
-</style>

@@ -8,15 +8,15 @@
 
 Client.create(email: 'client@test.com',
               fullname: 'Ivan Ivanov',
-              phone: '+375170000001',
+              phone: '+375(17)0000001',
               password: '12345678')
 Client.create(email: 'client2@test.com',
               fullname: 'Sergey Sergeev',
-              phone: '+375170000002',
+              phone: '+375(17)0000002',
               password: '12345678')
 Client.create(email: 'client3@test.com',
               fullname: 'Petr Petrov',
-              phone: '+375170000003',
+              phone: '+375(17)0000003',
               password: '12345678')
 
 Staff.create(email: 'staff@test.com', password: '12345678')
