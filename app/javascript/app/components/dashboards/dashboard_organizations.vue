@@ -39,9 +39,8 @@
         ],
         data: [],
         title: '',
-        loading: true,
+        loading: true
       }
-      error: {}
     },
     created() {
       this.fetchOrganizations();

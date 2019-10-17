@@ -12,7 +12,7 @@ export default new VueRouter({
   mode: 'history',
   hashbang: false,
   routes: [
-    { path: '/staff', redirect: '/organizations' },
+    { path: '/staff', redirect: '/clients' },
     { path: '/organizations', component: Organizations },
     { path: '/clients', component: Clients },
     { path: '/staffs', component: Staffs},

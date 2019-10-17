@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'application#index'
+  root to: 'staff/index#index'
 
   devise_for :client, controllers: { sessions: 'client/sessions' }
   devise_for :staff, controllers: { sessions: 'staff/sessions' }
@@ -17,10 +17,10 @@ Rails.application.routes.draw do
       get :user, on: :collection
     end
 
-    resources :clients, only: %i[index create destroy]
+    resources :clients, only: %i[index create update destroy]
     resources :staffs, only: %i[index create destroy]
     resources :organizations, only: %i[index create destroy]
   end
 
-  get '/*slug', to: 'staff/organizations#index'
+  get '/*slug', to: 'staff/index#index'
 end

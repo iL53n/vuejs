@@ -1,4 +1,5 @@
 <template lang="pug">
+
   div
     div(v-if="loading")
       q-page-container(align="middle")
@@ -13,8 +14,11 @@
               | Клиенты
         .q-pa-md
           q-table(name="clients", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации о клиентах!")
-            template(v-slot:body-cell-delete="props")
+            template(v-slot:body-cell-action="props")
               q-td(:props="props")
+                q-btn(push color="white" text-color="secondary" label="Редактировать" @click="show = !show")
+                  edit-client(:obj="props.row", :show="show")
+
                 q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteClient(props.row)" method="delete")
 
           create-client(@add-client="fetchClients")
@@ -24,6 +28,7 @@
   import { backendGet } from '../../api'
   import { backendDelete } from '../../api'
   import CreateClient from '../forms/create_client'
+  import EditClient from '../forms/edit_client'
   import { Notify } from 'quasar'
 
   export default {
@@ -34,13 +39,14 @@
           { name: 'fullname', align: 'center', label: 'Полное имя', field: 'fullname', sortable: true },
           { name: 'phone', label: 'Телефон', field: 'phone', sortable: true },
           { name: 'email', label: 'Email', field: 'email', sortable: true },
-          { name: 'delete', field: 'delete' }
+          { name: 'action', field: ['edit', 'delete'] }
         ],
         data: [],
         title: '',
         loading: true,
+        show: false,
+        errors: {}
       }
-      error: {}
     },
     created() {
       this.fetchClients();
@@ -76,6 +82,7 @@
     },
     components: {
       CreateClient,
+      EditClient,
       Notify
     }
   }
