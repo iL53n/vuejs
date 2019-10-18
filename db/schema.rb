@@ -29,21 +29,24 @@ ActiveRecord::Schema.define(version: 2019_10_17_203801) do
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
   end
 
-  create_table "clients_organizations", id: false, force: :cascade do |t|
+  create_table "clients_organizations", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id", "organization_id"], name: "index_clients_organizations_on_client_id_and_organization_id", unique: true
     t.index ["client_id"], name: "index_clients_organizations_on_client_id"
     t.index ["organization_id"], name: "index_clients_organizations_on_organization_id"
   end
 
-  create_table "equipments", force: :cascade do |t|
+  create_table "equipment", force: :cascade do |t|
     t.string "title", null: false
     t.string "kind", null: false
     t.integer "serial_number", null: false
     t.bigint "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_equipments_on_organization_id"
+    t.index ["organization_id"], name: "index_equipment_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -67,4 +70,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_203801) do
     t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "clients_organizations", "clients"
+  add_foreign_key "clients_organizations", "organizations"
+  add_foreign_key "equipment", "organizations"
 end

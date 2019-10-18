@@ -1,6 +1,6 @@
 class Organization < ApplicationRecord
   has_and_belongs_to_many :clients
-  has_many :equipment
+  has_many :equipments
 
   validates :title, :form_of_owership, :tax_number, :reg_number, presence: true
   validates :title, :tax_number, :reg_number, uniqueness: { case_sensitive: false }
