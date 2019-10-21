@@ -12,11 +12,12 @@
             q-toolbar-title(align="middle")
               | Сотрудники
         .q-pa-md
-          q-table(name="Clients", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации о сотрудниках!")
-            template(v-slot:body-cell-delete="props")
+          q-table(name="Staffs", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации о сотрудниках!")
+            template(v-slot:body-cell-action="props")
               q-td(:props="props")
+                q-btn(push color="white" text-color="secondary" label="Редактировать" @click="editStaff(props.row)")
                 q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteStaff(props.row)" method="delete")
-
+          router-view(@edit-staff="fetchStaffs")
           create-staff(@add-staff="fetchStaffs")
 </template>
 
@@ -24,6 +25,7 @@
   import { backendGet } from '../../api'
   import { backendDelete } from '../../api'
   import CreateStaff from '../forms/create_staff'
+  import EditStaff from '../forms/edit_staff'
   import { Notify } from 'quasar'
 
   export default {
@@ -32,11 +34,12 @@
         columns: [
           { name: 'id', align: 'center', label: 'ID', field: 'id', sortable: true },
           { name: 'email', label: 'Email', field: 'email', sortable: true },
-          { name: 'delete', field: 'delete' }
+          { name: 'action', field: ['edit', 'delete'] }
         ],
         data: [],
         title: '',
-        loading: true
+        loading: true,
+        errors: {}
       }
     },
     created() {
@@ -70,9 +73,13 @@
             this.error = true
           });
       },
+      editStaff(row) {
+        this.$router.push({ name: 'editStaff', params: { id: row.id }})
+      }
     },
     components: {
       CreateStaff,
+      EditStaff,
       Notify
     }
   }

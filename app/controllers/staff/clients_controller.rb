@@ -1,7 +1,7 @@
 class Staff::ClientsController < ApplicationController
   before_action :authenticate_staff!
   skip_before_action :verify_authenticity_token
-  before_action :load_client, only: %i[destroy update]
+  before_action :load_client, only: %i[show destroy update]
 
   def index
     render json: Client.all
@@ -17,12 +17,20 @@ class Staff::ClientsController < ApplicationController
     end
   end
 
+  def show
+    render json: @client, status: :ok
+  end
+
   def destroy
     @client.destroy
   end
 
   def update
-    @client.update(client_params)
+    if @client.update(client_params)
+      render json: @client, status: :created
+    else
+      render json: { errors: @client.errors }, status: :unprocessable_entity
+    end
   end
 
   private

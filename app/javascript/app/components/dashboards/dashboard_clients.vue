@@ -1,5 +1,4 @@
 <template lang="pug">
-
   div
     div(v-if="loading")
       q-page-container(align="middle")
@@ -16,11 +15,9 @@
           q-table(name="clients", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации о клиентах!")
             template(v-slot:body-cell-action="props")
               q-td(:props="props")
-                q-btn(push color="white" text-color="secondary" label="Редактировать" @click="show = !show")
-                  edit-client(:obj="props.row", :show="show")
-
+                q-btn(push color="white" text-color="secondary" label="Редактировать" @click="editClient(props.row)")
                 q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteClient(props.row)" method="delete")
-
+          router-view(@edit-client="fetchClients")
           create-client(@add-client="fetchClients")
 </template>
 
@@ -44,7 +41,6 @@
         data: [],
         title: '',
         loading: true,
-        show: false,
         errors: {}
       }
     },
@@ -79,6 +75,9 @@
             this.error = true
           });
       },
+      editClient(row) {
+        this.$router.push({ name: 'editClient', params: { id: row.id }})
+      }
     },
     components: {
       CreateClient,

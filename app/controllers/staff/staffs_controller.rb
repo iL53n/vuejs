@@ -1,6 +1,7 @@
 class Staff::StaffsController < ApplicationController
   before_action :authenticate_staff!
   skip_before_action :verify_authenticity_token
+  before_action :load_staff, only: %i[show destroy update]
 
   def index
     render json: Staff.all
@@ -16,12 +17,27 @@ class Staff::StaffsController < ApplicationController
     end
   end
 
+  def show
+    render json: @staff, status: :ok
+  end
+
   def destroy
-    @staff = Staff.find(params[:id])
     @staff.destroy
   end
 
+  def update
+    if @staff.update(staff_params)
+      render json: @staff, status: :created
+    else
+      render json: { errors: @staff.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def load_staff
+    @staff = Staff.find(params[:id])
+  end
 
   def staff_params
     params.require(:staff).permit(:email)

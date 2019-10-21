@@ -51,7 +51,8 @@ import {
   QDialog,
   QEditor,
   Notify,
-  Ripple
+  Ripple,
+  ClosePopup
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -102,7 +103,8 @@ Vue.use(Quasar, {
     QEditor
   },
   directives: {
-    Ripple
+    Ripple,
+    ClosePopup
   },
   plugins: {
     Notify

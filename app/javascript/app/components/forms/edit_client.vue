@@ -1,8 +1,7 @@
 <template lang="pug">
   div
-    q-dialog(v-model="show")
+    q-dialog(v-model="show" @hide="afterShow()")
       q-card(style="width: 300px")
-        | {{ obj }}
         q-form(@submit.prevent.stop="onSubmit" )
           q-card-section(class="q-gutter-y-md column")
             q-input(
@@ -41,41 +40,62 @@
             )
 
               q-card-actions
-            q-btn(flat color="white" text-color="secondary" label="Сохранить" @click="editClient" type="submit")
+            q-btn(flat color="white" text-color="secondary" label="Сохранить" @click="updateClient" type="submit" v-close-popup)
 </template>
 
 <script>
+  import { backendGet } from "../../api";
   import { backendPatch } from "../../api";
+  import { Notify } from 'quasar'
 
   export default {
-    props: {
-      obj: Object,
-      show: Boolean
-    },
     data() {
       return {
-        client: Object,
+        client: this.getClient(),
         // errors: {},
         dense: false,
+        show: true
       }
     },
-    // methods: {
-    //   editClient() {
-    //     backendPatch('/staff/clients', obj.id)
-    //         .then((response) => {
-    //           this.$emit('edit-client');
-    //           Notify.create({
-    //             message: "Клиент '" + this.obj.fullname + "' отредактирован!",
-    //             color: 'positive'
-    //           });
-    //         })
-    //         .catch((error) => {
-    //           this.disabled = true;
-    //           this.errors = error.response.data.errors;
-    //         });
-    //   },
-    // },
-    // components: {
-    // }
+    methods: {
+      getClient() {
+        backendGet(`/staff/clients/${this.$route.params.id}`)
+          .then((response) => {
+            this.client = response.data.client
+          })
+          .catch((error) => {
+            console.log(error);
+            this.error = true
+          })
+          .finally(() => {
+            this.loading = false
+          });
+      },
+      updateClient() {
+        backendPatch(`/staff/clients/${this.client.id}`, this.client)
+            .then((response) => {
+              this.$emit('edit-client');
+              Notify.create({
+                message: "Клиент '" + this.client.fullname + "' отредактирован!",
+                color: 'positive'
+              });
+              this.client = { fullname: '' };
+              this.errors = {};
+
+              this.$refs.fullname.resetValidation()
+              this.$refs.phone.resetValidation()
+              this.$refs.email.resetValidation()
+            })
+            .catch((error) => {
+              this.disabled = true;
+              this.errors = error.response.data.errors;
+            });
+      },
+      afterShow() {
+        this.$router.push("/clients");
+      },
+    },
+    components: {
+    }
   }
 </script>

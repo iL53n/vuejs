@@ -20,6 +20,8 @@ client3 = Client.create(email: 'client3@test.com',
                         password: '12345678')
 
 Staff.create(email: 'staff@test.com', password: '12345678')
+Staff.create(email: 'staff2@test.com', password: '12345678')
+Staff.create(email: 'staff3@test.com', password: '12345678')
 
 organization1 = Organization.create(title: 'Organization_1',
                                     form_of_owership: 'JSC',

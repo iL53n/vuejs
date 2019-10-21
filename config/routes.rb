@@ -17,8 +17,8 @@ Rails.application.routes.draw do
       get :user, on: :collection
     end
 
-    resources :clients, only: %i[index create update destroy]
-    resources :staffs, only: %i[index create destroy]
+    resources :clients, only: %i[index create show update destroy]
+    resources :staffs, only: %i[index create show update destroy]
     resources :organizations, only: %i[index create destroy]
   end
 
