@@ -1,7 +1,7 @@
 class Staff::StaffsController < ApplicationController
   before_action :authenticate_staff!
   skip_before_action :verify_authenticity_token
-  before_action :load_staff, only: %i[show destroy update]
+  before_action :load_staff, only: %i[show destroy update reset_pass]
 
   def index
     render json: Staff.all
@@ -31,6 +31,10 @@ class Staff::StaffsController < ApplicationController
     else
       render json: { errors: @staff.errors }, status: :unprocessable_entity
     end
+  end
+
+  def reset_pass
+    @staff.send_reset_password_instructions
   end
 
   private

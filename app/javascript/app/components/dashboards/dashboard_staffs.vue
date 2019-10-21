@@ -15,6 +15,7 @@
           q-table(name="Staffs", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации о сотрудниках!")
             template(v-slot:body-cell-action="props")
               q-td(:props="props")
+                q-btn(push color="white" text-color="secondary" label="Сбросить пароль" @click="resetPassStaff(props.row)")
                 q-btn(push color="white" text-color="secondary" label="Редактировать" @click="editStaff(props.row)")
                 q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteStaff(props.row)" method="delete")
           router-view(@edit-staff="fetchStaffs")
@@ -23,6 +24,7 @@
 
 <script>
   import { backendGet } from '../../api'
+  import { backendPost } from '../../api'
   import { backendDelete } from '../../api'
   import CreateStaff from '../forms/create_staff'
   import EditStaff from '../forms/edit_staff'
@@ -74,7 +76,20 @@
           });
       },
       editStaff(row) {
-        this.$router.push({ name: 'editStaff', params: { id: row.id }})
+        this.$router.push({name: 'editStaff', params: {id: row.id}})
+      },
+      resetPassStaff(obj) {
+        backendPost(`/staff/staffs/${obj.id}/reset_pass`)
+          .then((response) => {
+            Notify.create({
+              message: "Инструкция отправлена на почту:" + obj.email,
+              color: 'positive'
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+            this.error = true
+          });
       }
     },
     components: {

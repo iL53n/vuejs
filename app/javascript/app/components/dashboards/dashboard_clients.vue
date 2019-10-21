@@ -15,6 +15,7 @@
           q-table(name="clients", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации о клиентах!")
             template(v-slot:body-cell-action="props")
               q-td(:props="props")
+                q-btn(push color="white" text-color="secondary" label="Сбросить пароль" @click="resetPassClient(props.row)")
                 q-btn(push color="white" text-color="secondary" label="Редактировать" @click="editClient(props.row)")
                 q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteClient(props.row)" method="delete")
           router-view(@edit-client="fetchClients")
@@ -23,6 +24,7 @@
 
 <script>
   import { backendGet } from '../../api'
+  import { backendPost } from '../../api'
   import { backendDelete } from '../../api'
   import CreateClient from '../forms/create_client'
   import EditClient from '../forms/edit_client'
@@ -77,6 +79,19 @@
       },
       editClient(row) {
         this.$router.push({ name: 'editClient', params: { id: row.id }})
+      },
+      resetPassClient(obj) {
+        backendPost(`/staff/clients/${obj.id}/reset_pass`)
+          .then((response) => {
+            Notify.create({
+              message: "Инструкция отправлена на почту:" + obj.email,
+              color: 'positive'
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+            this.error = true
+          });
       }
     },
     components: {
