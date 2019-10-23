@@ -38,9 +38,29 @@
               :rules="[val => val !== null && val !== '' || 'Email может быть пустым']"
               :dense="dense"
             )
-
-              q-card-actions
-            q-btn(flat color="white" text-color="secondary" label="Сохранить" @click="updateClient" type="submit" v-close-popup)
+            q-select(
+              filled
+              multiple
+              label="Организации"
+              placeholder="Выберите организацию клиента"
+              v-model="selectOrganizations"
+              :options="organizations"
+              use-chips
+              stack-label
+              option-value="id"
+              option-label="title"
+              :dense="dense"
+            )
+          q-card-actions
+            q-btn(
+              flat
+              color="white"
+              text-color="secondary"
+              label="Сохранить"
+              @click="updateClient"
+              type="submit"
+              v-close-popup
+            )
 </template>
 
 <script>
@@ -52,9 +72,16 @@
     data() {
       return {
         client: this.getClient(),
+        organizations: this.getOrganizations(),
+        selectOrganizations: [],
         // errors: {},
         dense: false,
         show: true
+      }
+    },
+    watch: {
+      client() {
+        this.selectOrganizations = this.client.organizations;
       }
     },
     methods: {
@@ -65,31 +92,46 @@
           })
           .catch((error) => {
             console.log(error);
-            this.error = true
+            //this.error = true
           })
           .finally(() => {
             this.loading = false
           });
       },
       updateClient() {
-        backendPatch(`/staff/clients/${this.client.id}`, this.client)
-            .then((response) => {
-              this.$emit('edit-client');
-              Notify.create({
-                message: "Клиент '" + this.client.fullname + "' отредактирован!",
-                color: 'positive'
-              });
-              this.client = { fullname: '' };
-              this.errors = {};
+        this.client.organization_ids = this.selectOrganizations.map(org => org.id)
 
-              this.$refs.fullname.resetValidation()
-              this.$refs.phone.resetValidation()
-              this.$refs.email.resetValidation()
-            })
-            .catch((error) => {
-              this.disabled = true;
-              this.errors = error.response.data.errors;
+        backendPatch(`/staff/clients/${this.client.id}`, this.client)
+          .then((response) => {
+            this.$emit('edit-client');
+            Notify.create({
+              message: "Клиент '" + this.client.fullname + "' отредактирован!",
+              color: 'positive'
             });
+            this.client = { fullname: '' };
+            this.errors = {};
+
+            this.$refs.fullname.resetValidation()
+            this.$refs.phone.resetValidation()
+            this.$refs.email.resetValidation()
+          })
+          .catch((error) => {
+            this.disabled = true;
+            //this.errors = error.response.data.errors;
+          });
+      },
+      getOrganizations() {
+        backendGet('/staff/organizations')
+          .then((response) => {
+            this.organizations = response.data.organizations
+          })
+          .catch((error) => {
+            console.log(error);
+            //this.error = true
+          })
+          .finally(() => {
+            this.loading = false
+          });
       },
       afterShow() {
         this.$router.push("/clients");

@@ -1,5 +1,6 @@
 class Client < ApplicationRecord
-  has_and_belongs_to_many :organizations
+  has_many :clients_organizations
+  has_many :organizations, through: :clients_organizations
 
   devise :database_authenticatable,
          :recoverable,

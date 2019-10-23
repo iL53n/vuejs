@@ -52,7 +52,8 @@ import {
   QEditor,
   Notify,
   Ripple,
-  ClosePopup
+  ClosePopup,
+  QSelect
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -100,7 +101,8 @@ Vue.use(Quasar, {
     QSpinner,
     QField,
     QDialog,
-    QEditor
+    QEditor,
+    QSelect
   },
   directives: {
     Ripple,

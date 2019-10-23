@@ -41,12 +41,28 @@
                   :rules="[val => val !== null && val !== '' || 'Email может быть пустым']"
                   :dense="dense"
                   )
+                q-select(
+                  filled
+                  label="Организация *"
+                  placeholder="Выберите организацию клиента"
+                  v-model="client.organizations"
+                  :options="options"
+                  option-value="id"
+                  option-label="title"
+                  option-disable="inactive"
+                  emit-value
+                  map-options
+                  lazy-rules
+                  :rules="[val => val !== null && val !== '' || 'Организация должна быть указана']"
+                  :dense="dense"
+                  )
 
                 q-btn(label="СОЗДАТЬ" @click="addClient" type="submit" color="primary")
 </template>
 
 <script>
   import { backendPost } from '../../api'
+  import { backendGet } from '../../api'
   import { Notify } from 'quasar'
 
   export default {
@@ -57,6 +73,7 @@
           phone: '',
           email: ''
         },
+        options: this.getOrganizations(),
         errors: {},
         visible: false,
         dense: false,
@@ -88,6 +105,19 @@
 					  this.disabled = true;
             this.errors = error.response.data.errors;
 					});
+      },
+      getOrganizations() {
+        backendGet('/staff/organizations')
+          .then((response) => {
+            this.options = response.data.organizations
+          })
+          .catch((error) => {
+            console.log(error);
+            this.error = true
+          })
+          .finally(() => {
+            this.loading = false
+          });
       },
       onSubmit() {
         this.$refs.fullname.validate()

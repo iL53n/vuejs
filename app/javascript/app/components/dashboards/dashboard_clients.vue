@@ -36,9 +36,10 @@
         columns: [
           { name: 'id', align: 'center', label: 'ID', field: 'id', sortable: true },
           { name: 'fullname', align: 'center', label: 'Полное имя', field: 'fullname', sortable: true },
+          { name: 'organizations', align: 'center', label: 'Организация', field: 'organization_ids', sortable: true },
           { name: 'phone', label: 'Телефон', field: 'phone', sortable: true },
           { name: 'email', label: 'Email', field: 'email', sortable: true },
-          { name: 'action', field: ['edit', 'delete'] }
+          { name: 'action', field: ['reset_pass', 'edit', 'delete'] }
         ],
         data: [],
         title: '',
@@ -52,16 +53,16 @@
     methods: {
       fetchClients() {
         backendGet('/staff/clients')
-            .then((response) => {
-              this.data = response.data.clients
-            })
-            .catch((error) => {
-              console.log(error);
-              this.error = true
-            })
-            .finally(() => {
-              this.loading = false
-            });
+          .then((response) => {
+            this.data = response.data.clients
+          })
+          .catch((error) => {
+            console.log(error);
+            this.error = true
+          })
+          .finally(() => {
+            this.loading = false
+          });
       },
       deleteClient(obj) {
         backendDelete('/staff/clients/', obj.id)

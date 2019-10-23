@@ -26,7 +26,7 @@ class Staff::ClientsController < ApplicationController
   end
 
   def update
-    if @client.update(client_params)
+    if @client.update!(client_params)
       render json: @client, status: :created
     else
       render json: { errors: @client.errors }, status: :unprocessable_entity
@@ -40,10 +40,14 @@ class Staff::ClientsController < ApplicationController
   private
 
   def load_client
-    @client = Client.find(params[:id])
+    @client ||= Client.find(params[:id])
   end
 
   def client_params
-    params.require(:client).permit(:email, :fullname, :phone)
+    params.permit(:id,
+                  :email,
+                  :fullname,
+                  :phone,
+                  organization_ids: [])
   end
 end
