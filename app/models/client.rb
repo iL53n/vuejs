@@ -1,5 +1,5 @@
 class Client < ApplicationRecord
-  has_many :clients_organizations
+  has_many :clients_organizations, dependent: :destroy
   has_many :organizations, through: :clients_organizations
 
   devise :database_authenticatable,

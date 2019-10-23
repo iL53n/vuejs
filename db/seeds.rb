@@ -23,12 +23,12 @@ client1 = Client.create(email: 'client@test.com',
                         fullname: 'Ivan Ivanov',
                         phone: '+375(17)000-00-01',
                         password: '12345678',
-                        organizations: [organization1, organization2])
+                        organizations: [organization1])
 client2 = Client.create(email: 'client2@test.com',
                         fullname: 'Sergey Sergeev',
                         phone: '+375(17)000-00-02',
                         password: '12345678',
-                        organizations: [organization2, organization3])
+                        organizations: [organization2])
 client3 = Client.create(email: 'client3@test.com',
                         fullname: 'Petr Petrov',
                         phone: '+375(17)000-00-03',
@@ -39,15 +39,15 @@ Staff.create(email: 'staff@test.com', password: '12345678')
 Staff.create(email: 'staff2@test.com', password: '12345678')
 Staff.create(email: 'staff3@test.com', password: '12345678')
 
-Equipment.create(title: 'Bosh 2-24',
-                 kind: 'puncher',
-                 serial_number: 12345678,
-                 organization: organization1.id)
-Equipment.create(title: 'Bosh 2-26',
-                 kind: 'puncher',
-                 serial_number: 22345678,
-                 organization_id: organization2.id)
-Equipment.create(title: 'Bosh svf2',
-                 kind: 'drill',
-                 serial_number: 32345678,
-                 organization_id: organization3.id)
+# Equipment.create(title: 'Bosh 2-24',
+#                  kind: 'puncher',
+#                  serial_number: 12345678,
+#                  organization: organization1.id)
+# Equipment.create(title: 'Bosh 2-26',
+#                  kind: 'puncher',
+#                  serial_number: 22345678,
+#                  organization_id: organization2.id)
+# Equipment.create(title: 'Bosh svf2',
+#                  kind: 'drill',
+#                  serial_number: 32345678,
+#                  organization_id: organization3.id)

@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    q-dialog(v-model="show" @hide="afterShow()")
+    q-dialog(:value="true" @hide="afterShow()")
       q-card(style="width: 300px")
         q-form(@submit.prevent.stop="onSubmit" )
           q-card-section(class="q-gutter-y-md column")
@@ -11,7 +11,6 @@
               placeholder="Введите полное имя"
               v-model="client.fullname"
               type="text"
-              lazy-rules
               :rules="[val => val !== null && val !== '' || 'Имя не может быть пустым']"
               :dense="dense"
             )
@@ -23,7 +22,6 @@
               v-model="client.phone"
               mask="+375(##)###-##-##"
               hint="+375(##)###-##-##"
-              lazy-rules
               :rules="[val => val && val.length == 17 || 'Слишком короткий номер']"
               :dense="dense"
             )
@@ -34,7 +32,6 @@
               placeholder="Электронная почта"
               v-model="client.email"
               type="email"
-              lazy-rules
               :rules="[val => val !== null && val !== '' || 'Email может быть пустым']"
               :dense="dense"
             )
@@ -51,12 +48,9 @@
               option-label="title"
               :dense="dense"
             )
-          q-card-actions
             q-btn(
-              flat
-              color="white"
-              text-color="secondary"
-              label="Сохранить"
+              color="primary"
+              label="СОХРАНИТЬ"
               @click="updateClient"
               type="submit"
               v-close-popup
@@ -74,9 +68,8 @@
         client: this.getClient(),
         organizations: this.getOrganizations(),
         selectOrganizations: [],
-        // errors: {},
+        errors: {},
         dense: false,
-        show: true
       }
     },
     watch: {
@@ -92,15 +85,14 @@
           })
           .catch((error) => {
             console.log(error);
-            //this.error = true
+            this.errors = true
           })
           .finally(() => {
             this.loading = false
           });
       },
       updateClient() {
-        this.client.organization_ids = this.selectOrganizations.map(org => org.id)
-
+        this.client.organization_ids = this.selectOrganizations.map(org => org.id);
         backendPatch(`/staff/clients/${this.client.id}`, this.client)
           .then((response) => {
             this.$emit('edit-client');
@@ -111,14 +103,22 @@
             this.client = { fullname: '' };
             this.errors = {};
 
-            this.$refs.fullname.resetValidation()
-            this.$refs.phone.resetValidation()
+            this.$refs.fullname.resetValidation();
+            this.$refs.phone.resetValidation();
             this.$refs.email.resetValidation()
           })
           .catch((error) => {
-            this.disabled = true;
-            //this.errors = error.response.data.errors;
+            console.log(error);
+            this.errors = error.response.data.errors;
+          })
+          .finally(() => {
+            this.loading = false
           });
+      },
+      onSubmit() {
+        this.$refs.fullname.validate();
+        this.$refs.phone.validate();
+        this.$refs.email.validate()
       },
       getOrganizations() {
         backendGet('/staff/organizations')
@@ -127,7 +127,7 @@
           })
           .catch((error) => {
             console.log(error);
-            //this.error = true
+            this.errors = true
           })
           .finally(() => {
             this.loading = false
@@ -138,6 +138,10 @@
       },
     },
     components: {
+      Notify
     }
   }
 </script>
+
+<style lang="stylus" scoped>
+</style>

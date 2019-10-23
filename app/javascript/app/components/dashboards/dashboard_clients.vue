@@ -16,7 +16,7 @@
             template(v-slot:body-cell-action="props")
               q-td(:props="props")
                 q-btn(push color="white" text-color="secondary" label="Сбросить пароль" @click="resetPassClient(props.row)")
-                q-btn(push color="white" text-color="secondary" label="Редактировать" @click="editClient(props.row)")
+                q-btn(push color="white" text-color="primary" label="Редактировать" @click="editClient(props.row)")
                 q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteClient(props.row)" method="delete")
           router-view(@edit-client="fetchClients")
           create-client(@add-client="fetchClients")
@@ -58,7 +58,7 @@
           })
           .catch((error) => {
             console.log(error);
-            this.error = true
+            this.errors = true
           })
           .finally(() => {
             this.loading = false
@@ -75,7 +75,7 @@
           })
           .catch((error) => {
             console.log(error);
-            this.error = true
+            this.errors = true
           });
       },
       editClient(row) {
@@ -91,7 +91,7 @@
           })
           .catch((error) => {
             console.log(error);
-            this.error = true
+            this.errors = true
           });
       }
     },

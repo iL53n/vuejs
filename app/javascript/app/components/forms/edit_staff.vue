@@ -15,9 +15,14 @@
               :rules="[val => val !== null && val !== '' || 'Email может быть пустым']"
               :dense="dense"
             )
-
-              q-card-actions
-            q-btn(flat color="white" text-color="secondary" label="Сохранить" @click="updateStaff" type="submit" v-close-popup)
+            q-btn(
+              flat color="white"
+              text-color="secondary"
+              label="Сохранить"
+              @click="updateStaff"
+              type="submit"
+              v-close-popup
+            )
 </template>
 
 <script>
