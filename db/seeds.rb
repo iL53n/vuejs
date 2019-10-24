@@ -6,31 +6,31 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-organization1 = Organization.create(title: 'Organization_1',
-                                    form_of_owership: 'JSC',
+organization1 = Organization.create(title: 'Рога и копыта',
+                                    form_of_owership: 'ЗАО',
                                     tax_number: 123456789,
                                     reg_number: 1234567890123)
-organization2 = Organization.create(title: 'Organization_2',
-                                    form_of_owership: 'JSC',
+organization2 = Organization.create(title: 'Свой, чужой',
+                                    form_of_owership: 'ОАО',
                                     tax_number: 223456789,
                                     reg_number: 2234567890123)
-organization3 = Organization.create(title: 'Organization_3',
-                                    form_of_owership: 'JSC',
+organization3 = Organization.create(title: 'Дети детей',
+                                    form_of_owership: 'ООО',
                                     tax_number: 323456789,
                                     reg_number: 3234567890123)
 
 client1 = Client.create(email: 'client@test.com',
-                        fullname: 'Ivan Ivanov',
+                        fullname: 'Иван Иванов',
                         phone: '+375(17)000-00-01',
                         password: '12345678',
                         organizations: [organization1])
 client2 = Client.create(email: 'client2@test.com',
-                        fullname: 'Sergey Sergeev',
+                        fullname: 'Сергей Сергеев',
                         phone: '+375(17)000-00-02',
                         password: '12345678',
                         organizations: [organization2])
 client3 = Client.create(email: 'client3@test.com',
-                        fullname: 'Petr Petrov',
+                        fullname: 'Петр Петров',
                         phone: '+375(17)000-00-03',
                         password: '12345678',
                         organizations: [organization3])

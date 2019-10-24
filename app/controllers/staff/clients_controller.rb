@@ -48,6 +48,7 @@ class Staff::ClientsController < ApplicationController
                   :email,
                   :fullname,
                   :phone,
-                  organization_ids: [])
+                  organization_ids: [],
+                  organizations: [])
   end
 end

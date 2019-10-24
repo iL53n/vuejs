@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
 import Clients from '../javascript/app/components/dashboards/dashboard_clients'
+import CreateClient from '../javascript/app/components/forms/create_client'
 import EditClient from '../javascript/app/components/forms/edit_client'
 import Organizations from '../javascript/app/components/dashboards/dashboard_organizations'
 import Staffs from '../javascript/app/components/dashboards/dashboard_staffs'
@@ -19,6 +20,7 @@ export default new VueRouter({
     { path: '/clients', component: Clients,
       children: [
         { path: ':id/edit', component: EditClient, name: 'editClient' },
+        { path: '/create', component: CreateClient, name: 'createClient' },
       ],
     },
     { path: '/staffs', component: Staffs,
