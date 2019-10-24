@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     q-card(style="width: 300px")
-      q-form(@submit.prevent.stop="onSubmit" )
+      q-form
         q-card-section(class="q-gutter-y-md column")
           q-input(
             filled
@@ -42,7 +42,7 @@
             multiple
             label="Организации"
             placeholder="Выберите организацию клиента"
-            v-model="selectOrganizations"
+            v-model="client.organizations"
             :options="organizations"
             use-chips
             stack-label
@@ -55,7 +55,7 @@
             label="СОХРАНИТЬ"
             @click="saveClient"
             type="submit"
-            v-close-popup
+            v-close-popup="hide"
           )
           q-btn(
             flat
@@ -78,22 +78,38 @@
     data() {
       return {
         organizations: this.getOrganizations(),
-        selectOrganizations: [],
         errors: {},
         dense: false,
+        hide: true
       }
     },
-    watch: {
-      client() {
-        this.selectOrganizations = this.client.organizations;
-      }
-    },
+    // watch: {
+    //   client() {
+    //     this.selectOrganizations = this.client.organizations;
+    //   }
+    // },
     methods: {
       saveClient() {
-        if (this.$route.params.id) {
-          this.updateClient();
+        this.$refs.fullname.validate();
+        this.$refs.phone.validate();
+        this.$refs.email.validate();
+
+        if (this.$refs.fullname.hasError || this.$refs.phone.hasError || this.$refs.email.hasError) {
+          this.hide = false;
+          Notify.create({
+            message: "Не сохранено! В форме есть ошибки!",
+            color: 'negative',
+            position: 'center'
+          })
         } else {
-          this.addClient();
+          this.hide = true;
+          this.client.organization_ids = this.client.organizations.map(org => org.id);
+
+          if (this.$route.params.id) {
+            this.updateClient();
+          } else {
+            this.addClient();
+          }
         }
       },
       getOrganizations() {
@@ -110,13 +126,13 @@
           });
       },
       updateClient() {
-        this.client.organization_ids = this.selectOrganizations.map(org => org.id);
         backendPatch(`/staff/clients/${this.client.id}`, this.client)
           .then((response) => {
             this.$emit('edit-client');
             Notify.create({
               message: "Клиент '" + this.client.fullname + "' отредактирован!",
-              color: 'positive'
+              color: 'positive',
+              position: 'right'
             });
             this.client = { fullname: '' };
             this.errors = {};
@@ -139,25 +155,21 @@
             this.$emit('add-client');
             Notify.create({
               message: "Клиент '" + this.client.fullname + "' создан!",
-              color: 'positive'
+              color: 'positive',
+              position: 'left'
             });
             this.client = { fullname: '' };
             this.errors = {};
             this.visible = false;
 
-            this.$refs.fullname.resetValidation()
-            this.$refs.phone.resetValidation()
+            this.$refs.fullname.resetValidation();
+            this.$refs.phone.resetValidation();
             this.$refs.email.resetValidation()
           })
           .catch((error) => {
             this.disabled = true;
             this.errors = error.response.data.errors;
           });
-      },
-      onSubmit() {
-        this.$refs.fullname.validate();
-        this.$refs.phone.validate();
-        this.$refs.email.validate()
       },
       afterShow() {
         this.$router.push("/clients");

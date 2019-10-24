@@ -1,6 +1,11 @@
 <template lang="pug">
   div
-    q-dialog(:value="true" @hide="afterShow()" :position="position")
+    q-dialog(
+      :value="true"
+      @hide="afterShow()"
+      :position="position"
+      transition-show="flip-right"
+    )
       form-client(:client="client")
 </template>
 
@@ -14,6 +19,7 @@
           fullname: '',
           phone: '',
           email: '',
+          organization_ids: [],
           organizations: []
         },
         position: 'left',

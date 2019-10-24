@@ -1,6 +1,11 @@
 <template lang="pug">
   div
-    q-dialog(:value="true" @hide="afterShow()" :position="position"  transition-show="rotate")
+    q-dialog(
+      :value="true"
+      @hide="afterShow()"
+      :position="position"
+      transition-show="rotate"
+    )
       form-client(:client="client")
 </template>
 
