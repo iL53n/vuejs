@@ -11,7 +11,7 @@
 
 <script>
   import FormClient from './client_form'
-  import { backendGet } from "../../api";
+  import { backendGet } from "../../../api";
 
   export default {
     data() {

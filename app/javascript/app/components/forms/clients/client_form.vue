@@ -66,9 +66,9 @@
 </template>
 
 <script>
-  import { backendGet } from "../../api";
-  import { backendPost } from '../../api';
-  import { backendPatch } from "../../api";
+  import { backendGet } from "../../../api";
+  import { backendPost } from '../../../api';
+  import { backendPatch } from "../../../api";
   import { Notify } from 'quasar'
 
   export default {
@@ -83,11 +83,6 @@
         hide: true
       }
     },
-    // watch: {
-    //   client() {
-    //     this.selectOrganizations = this.client.organizations;
-    //   }
-    // },
     methods: {
       saveClient() {
         this.$refs.fullname.validate();
@@ -160,7 +155,6 @@
             });
             this.client = { fullname: '' };
             this.errors = {};
-            this.visible = false;
 
             this.$refs.fullname.resetValidation();
             this.$refs.phone.resetValidation();

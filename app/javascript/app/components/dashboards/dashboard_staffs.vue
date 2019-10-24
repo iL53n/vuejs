@@ -14,29 +14,31 @@
         .q-pa-md
           q-table(name="Staffs", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации о сотрудниках!")
             template(v-slot:body-cell-action="props")
-              q-td(:props="props")
+              q-td(align="right")
                 q-btn(push color="white" text-color="secondary" label="Сбросить пароль" @click="resetPassStaff(props.row)")
                 q-btn(push color="white" text-color="secondary" label="Редактировать" @click="editStaff(props.row)")
                 q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteStaff(props.row)" method="delete")
-          router-view(@edit-staff="fetchStaffs")
-          create-staff(@add-staff="fetchStaffs")
+          q-page-sticky(expand position="bottom-left")
+            q-btn(push round color="primary" size="20px" @click="createStaff()") +
+
+          router-view(@edit-staff="fetchStaffs" @create-staff="fetchStaffs")
 </template>
 
 <script>
   import { backendGet } from '../../api'
   import { backendPost } from '../../api'
   import { backendDelete } from '../../api'
-  import CreateStaff from '../forms/create_staff'
-  import EditStaff from '../forms/edit_staff'
+  import CreateStaff from '../forms/staffs/create_staff'
+  import EditStaff from '../forms/staffs/edit_staff'
   import { Notify } from 'quasar'
 
   export default {
     data () {
       return {
         columns: [
-          { name: 'id', align: 'center', label: 'ID', field: 'id', sortable: true },
-          { name: 'email', label: 'Email', field: 'email', sortable: true },
-          { name: 'action', field: ['edit', 'delete'] }
+          { name: 'id', align: 'left', label: 'ID', field: 'id', sortable: true },
+          { name: 'email', align: 'center', label: 'Email', field: 'email', sortable: true },
+          { name: 'action', align: 'center', field: ['reset_pass', 'edit', 'delete'] }
         ],
         data: [],
         title: '',
@@ -74,6 +76,9 @@
             console.log(error);
             this.error = true
           });
+      },
+      createStaff() {
+        this.$router.push({ name: 'createStaff'})
       },
       editStaff(row) {
         this.$router.push({name: 'editStaff', params: {id: row.id}})

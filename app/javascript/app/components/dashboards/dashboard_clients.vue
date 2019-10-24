@@ -31,8 +31,8 @@
   import { backendGet } from '../../api'
   import { backendPost } from '../../api'
   import { backendDelete } from '../../api'
-  import CreateClient from '../forms/create_client'
-  import EditClient from '../forms/edit_client'
+  import CreateClient from '../forms/clients/create_client'
+  import EditClient from '../forms/clients/edit_client'
   import { Notify } from 'quasar'
 
   export default {
