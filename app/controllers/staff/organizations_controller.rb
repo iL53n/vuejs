@@ -8,7 +8,7 @@ class Staff::OrganizationsController < ApplicationController
   end
 
   def show
-    render json: @client, status: :ok
+    render json: @organization, status: :ok
   end
 
   def create
@@ -26,7 +26,7 @@ class Staff::OrganizationsController < ApplicationController
   end
 
   def update
-    if @organization.update!(client_params)
+    if @organization.update(organization_params)
       render json: @organization, status: :created
     else
       render json: { errors: @organization.errors }, status: :unprocessable_entity
@@ -44,6 +44,7 @@ class Staff::OrganizationsController < ApplicationController
                   :form_of_owership,
                   :tax_number,
                   :reg_number,
-                  client_ids: [])
+                  client_ids: [],
+                  clients: [])
   end
 end

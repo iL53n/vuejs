@@ -23,6 +23,7 @@
         //q-route-tab(to="/index" name="root" label="Главная")
         q-route-tab(to="/organizations" name="organizations" label="Организации")
         q-route-tab(to="/clients" name="clients" label="Клиенты")
+        q-route-tab(to="/equipments" name="equipments" label="Оборудование")
         q-route-tab(to="/staffs" name="staffs" label="Сотрудники")
 </template>
 

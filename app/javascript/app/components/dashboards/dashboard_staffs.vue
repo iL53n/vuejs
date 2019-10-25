@@ -16,7 +16,7 @@
             template(v-slot:body-cell-action="props")
               q-td(align="right")
                 q-btn(push color="white" text-color="secondary" label="Сбросить пароль" @click="resetPassStaff(props.row)")
-                q-btn(push color="white" text-color="secondary" label="Редактировать" @click="editStaff(props.row)")
+                q-btn(push color="white" text-color="primary" label="Редактировать" @click="editStaff(props.row)")
                 q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteStaff(props.row)" method="delete")
           q-page-sticky(expand position="bottom-left")
             q-btn(push round color="primary" size="20px" @click="createStaff()") +
