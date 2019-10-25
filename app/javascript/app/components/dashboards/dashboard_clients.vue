@@ -15,7 +15,7 @@
           q-table(name="clients", :title="title", :data="data", :columns="columns", row-key="id", no-data-label="Нет информации о клиентах!")
             template(v-slot:body-cell-organizations="props")
               q-td
-                | {{ props.row.organizations.map(org => org.form_of_owership + "\"" + org.title + "\"").join(", ") }}
+                | {{ props.row.organizations.map(org => org.form_of_owership + " \"" + org.title + "\"").join(", ") }}
             template(v-slot:body-cell-action="props")
               q-td(align="right")
                 q-btn(push color="white" text-color="secondary" label="Сбросить пароль" @click="resetPassClient(props.row)")

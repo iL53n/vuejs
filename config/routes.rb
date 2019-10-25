@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       post :reset_pass, on: :member
     end
     resources :organizations, only: %i[index create show update destroy]
+    resources :equipments, only: %i[index create show update destroy]
   end
 
   get '/*slug', to: 'staff/index#index'

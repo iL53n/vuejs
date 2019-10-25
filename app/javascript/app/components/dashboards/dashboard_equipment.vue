@@ -10,29 +10,27 @@
         q-page-sticky(expand position="top")
           q-toolbar(class="bg-secondary text-white")
             q-toolbar-title(align="middle")
-              | Клиенты
+              | Оборудование
         .q-pa-md
-          q-table(name="clients", :title="title", :data="data", :columns="columns", row-key="id", no-data-label="Нет информации о клиентах!")
-            template(v-slot:body-cell-organizations="props")
+          q-table(name="equipments", :title="title", :data="data", :columns="columns", row-key="id", no-data-label="Нет информации о обордованиии!")
+            template(v-slot:body-cell-organization="props")
               q-td
-                | {{ props.row.organizations.map(org => org.form_of_owership + "\"" + org.title + "\"").join(", ") }}
+                | {{ props.row.organization.form_of_owership + " \"" + props.row.organization.title + "\""}}
             template(v-slot:body-cell-action="props")
               q-td(align="right")
-                q-btn(push color="white" text-color="secondary" label="Сбросить пароль" @click="resetPassClient(props.row)")
-                q-btn(push color="white" text-color="primary" label="Редактировать" @click="editClient(props.row)")
-                q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteClient(props.row)" method="delete")
+                q-btn(push color="white" text-color="primary" label="Редактировать" @click="editEquipment(props.row)")
+                q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteEquipment(props.row)" method="delete")
           q-page-sticky(expand position="bottom-left")
-            q-btn(push round color="primary" size="20px" @click="createClient()") +
+            q-btn(push round color="primary" size="20px" @click="createEquipment()") +
 
-          router-view(@edit-client="fetchClients" @create-client="fetchClients")
+          router-view(@edit-equipment="fetchEquipments" @create-equipment="fetchEquipments")
 </template>
 
 <script>
   import { backendGet } from '../../api'
-  import { backendPost } from '../../api'
   import { backendDelete } from '../../api'
-  import CreateClient from '../forms/clients/create_client'
-  import EditClient from '../forms/clients/edit_client'
+  import CreateEquipment from '../forms/equipments/create_equipment'
+  import EditEquipment from '../forms/equipments/edit_equipment'
   import { Notify } from 'quasar'
 
   export default {
@@ -40,11 +38,11 @@
       return {
         columns: [
           { name: 'id', align: 'left', label: 'ID', field: 'id', sortable: true },
-          { name: 'fullname', align: 'left', label: 'Полное имя', field: 'fullname', sortable: true },
-          { name: 'organizations', align: 'center', label: 'Организация(-ии)', field: '', sortable: true },
-          { name: 'phone', align: 'center', label: 'Телефон', field: 'phone', sortable: true },
-          { name: 'email', align: 'center', label: 'Email', field: 'email', sortable: true },
-          { name: 'action', align: 'center', field: ['reset_pass', 'edit', 'delete'] }
+          { name: 'title', align: 'left', label: 'Наименование', field: 'title', sortable: true },
+          { name: 'kind', align: 'left', label: 'Тип', field: 'kind', sortable: true },
+          { name: 'serial_number', align: 'center', label: 'Серийный номер', field: 'serial_number', sortable: true },
+          { name: 'organization', align: 'center', label: 'Организация', field: '', sortable: true },
+          { name: 'action', align: 'center', field: ['edit', 'delete'] }
         ],
         data: [],
         title: '',
@@ -55,13 +53,13 @@
     computed: {
     },
     created() {
-      this.fetchClients();
+      this.fetchEquipments();
     },
     methods: {
-      fetchClients() {
-        backendGet('/staff/clients')
+      fetchEquipments() {
+        backendGet('/staff/equipments')
           .then((response) => {
-            this.data = response.data.clients
+            this.data = response.data.equipment
           })
           .catch((error) => {
             console.log(error);
@@ -71,12 +69,12 @@
             this.loading = false
           });
       },
-      deleteClient(obj) {
-        backendDelete('/staff/clients/', obj.id)
+      deleteEquipment(obj) {
+        backendDelete('/staff/equipments/', obj.id)
           .then((response) => {
-            this.fetchClients();
+            this.fetchEquipments();
             Notify.create({
-              message: "Клиент '" + obj.fullname + "' удален!",
+              message: "Оборудование '" + obj.fullname + "' удалено!",
               color: 'negative'
             })
           })
@@ -85,29 +83,16 @@
             this.errors = true
           });
       },
-      createClient() {
-        this.$router.push({ name: 'createClient'})
+      createEquipment() {
+        this.$router.push({ name: 'createEquipment'})
       },
-      editClient(row) {
-        this.$router.push({ name: 'editClient', params: { id: row.id }})
+      editEquipment(row) {
+        this.$router.push({ name: 'editEquipment', params: { id: row.id }})
       },
-      resetPassClient(obj) {
-        backendPost(`/staff/clients/${obj.id}/reset_pass`)
-          .then((response) => {
-            Notify.create({
-              message: "Инструкция отправлена на почту:" + obj.email,
-              color: 'positive'
-            })
-          })
-          .catch((error) => {
-            console.log(error);
-            this.errors = true
-          });
-      }
     },
     components: {
-      CreateClient,
-      EditClient,
+      CreateEquipment,
+      EditEquipment,
       Notify
     }
   }

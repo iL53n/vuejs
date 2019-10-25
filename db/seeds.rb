@@ -39,15 +39,15 @@ Staff.create(email: 'staff@test.com', password: '12345678')
 Staff.create(email: 'staff2@test.com', password: '12345678')
 Staff.create(email: 'staff3@test.com', password: '12345678')
 
-# Equipment.create(title: 'Bosh 2-24',
-#                  kind: 'puncher',
-#                  serial_number: 12345678,
-#                  organization: organization1.id)
-# Equipment.create(title: 'Bosh 2-26',
-#                  kind: 'puncher',
-#                  serial_number: 22345678,
-#                  organization_id: organization2.id)
-# Equipment.create(title: 'Bosh svf2',
-#                  kind: 'drill',
-#                  serial_number: 32345678,
-#                  organization_id: organization3.id)
+Equipment.create(title: 'Bosh 2-24',
+                 kind: 'puncher',
+                 serial_number: 12345678,
+                 organization: organization1)
+Equipment.create(title: 'Bosh 2-26',
+                 kind: 'puncher',
+                 serial_number: 22345678,
+                 organization: organization2)
+Equipment.create(title: 'Bosh svf2',
+                 kind: 'drill',
+                 serial_number: 32345678,
+                 organization: organization3)

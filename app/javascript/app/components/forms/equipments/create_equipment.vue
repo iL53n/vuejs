@@ -6,33 +6,33 @@
       :position="position"
       transition-show="flip-right"
     )
-      form-client(:client="client")
+      form-equipment(:equipment="equipment")
 </template>
 
 <script>
-  import FormClient from './equipment_form'
+  import FormEquipment from './equipment_form'
 
   export default {
     data() {
       return {
-        client: {
-          fullname: '',
-          phone: '',
-          email: '',
-          organization_ids: [],
-          organizations: []
+        equipment: {
+          title: '',
+          kind: '',
+          serial_number: '',
+          organization_id: '',
+          organization: ''
         },
         position: 'left',
       }
     },
     methods: {
       afterShow() {
-        this.$router.push("/clients");
-        this.$emit('create-client');
+        this.$router.push("/equipments");
+        this.$emit('create-equipment');
       },
     },
     components: {
-      FormClient
+      FormEquipment
     }
   }
 </script>

@@ -179,7 +179,6 @@
             this.$refs.reg_number.resetValidation();
           })
           .catch((error) => {
-            this.disabled = true;
             this.errors = error.response.data.errors;
           });
       },

@@ -5,55 +5,54 @@
         q-card-section(class="q-gutter-y-md column")
           q-input(
             filled
-            ref="fullname"
-            label="Имя *"
-            placeholder="Введите полное имя"
-            v-model="client.fullname"
+            ref="title"
+            label="Наименование *"
+            placeholder="Введите наименование изделия"
+            v-model="equipment.title"
             type="text"
             lazy-rules
-            :rules="[val => val !== null && val !== '' || 'Имя не может быть пустым']"
+            :rules="[val => val !== null && val !== '' || 'Наименование не может быть пустым']"
             :dense="dense"
           )
           q-input(
             filled
-            ref="phone"
-            label="Телефон *"
-            placeholder="Номер телефона"
-            v-model="client.phone"
-            mask="+375(##)###-##-##"
-            hint="+375(##)###-##-##"
+            ref="kind"
+            label="Тип *"
+            placeholder="Тип или вид изделия"
+            v-model="equipment.kind"
+            type="text"
             lazy-rules
-            :rules="[val => val && val.length == 17 || 'Слишком короткий номер']"
+            :rules="[val => val !== null && val !== '' || 'Тип не может быть пустым']"
             :dense="dense"
           )
           q-input(
             filled
-            ref="email"
-            label="Email *"
+            ref="serial_number"
+            label="Серийный номер *"
             placeholder="Электронная почта"
-            v-model="client.email"
-            type="email"
+            v-model="equipment.serial_number"
+            type="text"
             lazy-rules
-            :rules="[val => val !== null && val !== '' || 'Email может быть пустым']"
+            :rules="[val => val !== null && val !== '' || 'Серийный номер не может быть пустым']"
             :dense="dense"
           )
           q-select(
             filled
-            multiple
+            ref="organization"
             label="Организации"
-            placeholder="Выберите организацию клиента"
-            v-model="client.organizations"
+            placeholder="Выберите организацию"
+            v-model="equipment.organization"
             :options="organizations"
-            use-chips
-            stack-label
             option-value="id"
             option-label="title"
+            lazy-rules
+            :rules="[val => val !== null && val !== '' || 'Выберите организацию']"
             :dense="dense"
           )
           q-btn(
             color="primary"
             label="СОХРАНИТЬ"
-            @click="saveClient"
+            @click="saveEquipment"
             type="submit"
             v-close-popup="hide"
           )
@@ -73,7 +72,7 @@
 
   export default {
     props: {
-      client: Object
+      equipment: {}
     },
     data() {
       return {
@@ -84,12 +83,13 @@
       }
     },
     methods: {
-      saveClient() {
-        this.$refs.fullname.validate();
-        this.$refs.phone.validate();
-        this.$refs.email.validate();
+      saveEquipment() {
+        this.$refs.title.validate();
+        this.$refs.kind.validate();
+        this.$refs.serial_number.validate();
+        this.$refs.organization.validate();
 
-        if (this.$refs.fullname.hasError || this.$refs.phone.hasError || this.$refs.email.hasError) {
+        if (this.$refs.title.hasError || this.$refs.kind.hasError || this.$refs.serial_number.hasError || this.$refs.organization.hasError) {
           this.hide = false;
           Notify.create({
             message: "Не сохранено! В форме есть ошибки!",
@@ -98,12 +98,12 @@
           })
         } else {
           this.hide = true;
-          this.client.organization_ids = this.client.organizations.map(org => org.id);
+          this.equipment.organization_id = this.equipment.organization.id;
 
           if (this.$route.params.id) {
-            this.updateClient();
+            this.updateEquipment();
           } else {
-            this.addClient();
+            this.addEquipment();
           }
         }
       },
@@ -120,21 +120,22 @@
             this.loading = false
           });
       },
-      updateClient() {
-        backendPatch(`/staff/clients/${this.client.id}`, this.client)
+      updateEquipment() {
+        backendPatch(`/staff/equipments/${this.equipment.id}`, this.equipment)
           .then((response) => {
-            this.$emit('edit-client');
+            this.$emit('edit-equipment');
             Notify.create({
-              message: "Клиент '" + this.client.fullname + "' отредактирован!",
+              message: "Оборудование '" + this.equipment.fullname + "' отредактировано!",
               color: 'positive',
               position: 'right'
             });
-            this.client = { fullname: '' };
+            this.equipment = { title: '' };
             this.errors = {};
 
-            this.$refs.fullname.resetValidation();
-            this.$refs.phone.resetValidation();
-            this.$refs.email.resetValidation()
+            this.$refs.title.resetValidation();
+            this.$refs.kind.resetValidation();
+            this.$refs.serial_number.resetValidation();
+            this.$refs.organization.resetValidation();
           })
           .catch((error) => {
             console.log(error);
@@ -144,29 +145,29 @@
             this.loading = false
           });
       },
-      addClient() {
-        backendPost('/staff/clients', this.client)
+      addEquipment() {
+        backendPost('/staff/equipments', this.equipment)
           .then((response) => {
-            this.$emit('add-client');
+            this.$emit('add-equipment');
             Notify.create({
-              message: "Клиент '" + this.client.fullname + "' создан!",
+              message: "Оборудование '" + this.equipment.title + "' создано!",
               color: 'positive',
               position: 'left'
             });
-            this.client = { fullname: '' };
+            this.equipment = { title: '' };
             this.errors = {};
 
-            this.$refs.fullname.resetValidation();
-            this.$refs.phone.resetValidation();
-            this.$refs.email.resetValidation()
+            this.$refs.title.resetValidation();
+            this.$refs.kind.resetValidation();
+            this.$refs.serial_number.resetValidation();
+            this.$refs.organization.resetValidation();
           })
           .catch((error) => {
-            this.disabled = true;
             this.errors = error.response.data.errors;
           });
       },
       afterShow() {
-        this.$router.push("/clients");
+        this.$router.push("/equipments");
       },
     },
     components: {
