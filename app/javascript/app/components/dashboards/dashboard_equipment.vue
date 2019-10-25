@@ -74,7 +74,7 @@
           .then((response) => {
             this.fetchEquipments();
             Notify.create({
-              message: "Оборудование '" + obj.fullname + "' удалено!",
+              message: "Оборудование '" + obj.title + "' удалено!",
               color: 'negative'
             })
           })

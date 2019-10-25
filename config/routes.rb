@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   namespace :staff do
-    root to: 'index#index'
+    root to: 'staff/organizations#index'
     resources :index, only: :index do
       get :user, on: :collection
     end

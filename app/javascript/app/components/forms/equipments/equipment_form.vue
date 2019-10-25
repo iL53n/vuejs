@@ -125,7 +125,7 @@
           .then((response) => {
             this.$emit('edit-equipment');
             Notify.create({
-              message: "Оборудование '" + this.equipment.fullname + "' отредактировано!",
+              message: "Оборудование '" + this.equipment.title + "' отредактировано!",
               color: 'positive',
               position: 'right'
             });

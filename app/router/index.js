@@ -19,29 +19,29 @@ export default new VueRouter({
   mode: 'history',
   hashbang: false,
   routes: [
-    { path: '/staff', redirect: '/staffs' },
+    { path: '/', redirect: '/organizations' },
     { path: '/organizations', component: Organizations,
       children: [
         { path: ':id/edit', component: EditOrganization, name: 'editOrganization' },
-        { path: '/create', component: CreateOrganization, name: 'createOrganization' },
+        { path: 'create', component: CreateOrganization, name: 'createOrganization' },
       ],
     },
     { path: '/clients', component: Clients,
       children: [
         { path: ':id/edit', component: EditClient, name: 'editClient' },
-        { path: '/create', component: CreateClient, name: 'createClient' },
+        { path: 'create', component: CreateClient, name: 'createClient' },
       ],
     },
     { path: '/equipments', component: Equipments,
       children: [
         { path: ':id/edit', component: EditEquipment, name: 'editEquipment' },
-        { path: '/create', component: CreateEquipment, name: 'createEquipment' },
+        { path: 'create', component: CreateEquipment, name: 'createEquipment' },
       ],
     },
     { path: '/staffs', component: Staffs,
       children: [
         { path: ':id/edit', component: EditStaff, name: 'editStaff' },
-        { path: '/create', component: CreateStaff, name: 'createStaff' },
+        { path: 'create', component: CreateStaff, name: 'createStaff' },
       ],
     },
   ]
