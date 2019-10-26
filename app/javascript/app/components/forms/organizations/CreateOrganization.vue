@@ -6,33 +6,34 @@
       :position="position"
       transition-show="flip-right"
     )
-      form-client(:client="client")
+      form-organization(:organization="organization")
 </template>
 
 <script>
-  import FormClient from './client_form'
+  import FormOrganization from './OrganizationForm'
 
   export default {
     data() {
       return {
-        client: {
-          fullname: '',
-          phone: '',
-          email: '',
-          organization_ids: [],
-          organizations: []
+        organization: {
+          title: '',
+          form_of_owership: '',
+          tax_number: '',
+          reg_number: '',
+          client_ids: [],
+          clients: []
         },
         position: 'left',
       }
     },
     methods: {
       afterShow() {
-        this.$router.push("/clients");
-        this.$emit('create-client');
+        this.$router.push("/organizations");
+        this.$emit('create-organization');
       },
     },
     components: {
-      FormClient
+      FormOrganization
     }
   }
 </script>

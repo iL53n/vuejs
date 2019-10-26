@@ -29,8 +29,8 @@
 <script>
   import { backendGet } from '../../api'
   import { backendDelete } from '../../api'
-  import CreateEquipment from '../forms/equipments/create_equipment'
-  import EditEquipment from '../forms/equipments/edit_equipment'
+  import CreateEquipment from '../forms/equipments/CreateEquipment'
+  import EditEquipment from '../forms/equipments/EditEquipment'
   import { Notify } from 'quasar'
 
   export default {

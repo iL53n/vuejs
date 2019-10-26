@@ -13,8 +13,8 @@
 </template>
 
 <script>
-  import HeaderComponent from './components/common/header_client'
-  import FooterComponent from './components/common/footer'
+  import HeaderComponent from './components/common/HeaderClient'
+  import FooterComponent from './components/common/Footer'
 
   export default {
     data () {

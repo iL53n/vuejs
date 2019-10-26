@@ -2,18 +2,22 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
-import Clients from '../javascript/app/components/dashboards/dashboard_clients'
-import CreateClient from '../javascript/app/components/forms/clients/create_client'
-import EditClient from '../javascript/app/components/forms/clients/edit_client'
-import Organizations from '../javascript/app/components/dashboards/dashboard_organizations'
-import CreateOrganization from '../javascript/app/components/forms/organizations/create_organization'
-import EditOrganization from '../javascript/app/components/forms/organizations/edit_organization'
-import Equipments from '../javascript/app/components/dashboards/dashboard_equipment'
-import CreateEquipment from '../javascript/app/components/forms/equipments/create_equipment'
-import EditEquipment from '../javascript/app/components/forms/equipments/edit_equipment'
-import Staffs from '../javascript/app/components/dashboards/dashboard_staffs'
-import CreateStaff from '../javascript/app/components/forms/staffs/create_staff'
-import EditStaff from '../javascript/app/components/forms/staffs/edit_staff'
+// const Clients = () => import(/* webpackChunkName: "DashboardClients" */ '../javascript/app/components/dashboards/DashboardClients');
+// const Organizations = () => import(/* webpackChunkName: "DashboardOrganizations" */ '../javascript/app/components/dashboards/DashboardOrganizations');
+// const Equipments = () => import(/* webpackChunkName: "DashboardEquipments" */ '../javascript/app/components/dashboards/DashboardEquipment');
+// const Staffs = () => import(/* webpackChunkName: "DashboardStaffs" */ '../javascript/app/components/dashboards/DashboardStaffs');
+import Clients from '../javascript/app/components/dashboards/DashboardClients'
+import CreateClient from '../javascript/app/components/forms/clients/CreateClient'
+import EditClient from '../javascript/app/components/forms/clients/EditClient'
+import Organizations from '../javascript/app/components/dashboards/DashboardOrganizations'
+import CreateOrganization from '../javascript/app/components/forms/organizations/CreateOrganization'
+import EditOrganization from '../javascript/app/components/forms/organizations/EditOrganization'
+import Equipments from '../javascript/app/components/dashboards/DashboardEquipment'
+import CreateEquipment from '../javascript/app/components/forms/equipments/CreateEquipment'
+import EditEquipment from '../javascript/app/components/forms/equipments/EditEquipment'
+import Staffs from '../javascript/app/components/dashboards/DashboardStaffs'
+import CreateStaff from '../javascript/app/components/forms/staffs/CreateStaff'
+import EditStaff from '../javascript/app/components/forms/staffs/EditStaff'
 
 export default new VueRouter({
   mode: 'history',

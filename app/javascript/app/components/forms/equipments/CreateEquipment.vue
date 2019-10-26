@@ -6,29 +6,33 @@
       :position="position"
       transition-show="flip-right"
     )
-      form-staff(:staff="staff")
+      form-equipment(:equipment="equipment")
 </template>
 
 <script>
-  import FormStaff from './staff_form'
+  import FormEquipment from './EquipmentForm'
 
   export default {
     data() {
       return {
-        staff: {
-          email: '',
+        equipment: {
+          title: '',
+          kind: '',
+          serial_number: '',
+          organization_id: '',
+          organization: ''
         },
         position: 'left',
       }
     },
     methods: {
       afterShow() {
-        this.$router.push("/staffs");
-        this.$emit('create-staff');
+        this.$router.push("/equipments");
+        this.$emit('create-equipment');
       },
     },
     components: {
-      FormStaff
+      FormEquipment
     }
   }
 </script>

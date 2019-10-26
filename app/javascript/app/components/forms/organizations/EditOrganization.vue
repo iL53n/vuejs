@@ -6,25 +6,25 @@
       :position="position"
       transition-show="rotate"
     )
-      form-client(:client="client")
+      form-organization(:organization="organization")
 </template>
 
 <script>
-  import FormClient from './client_form'
+  import FormOrganization from './OrganizationForm'
   import { backendGet } from "../../../api";
 
   export default {
     data() {
       return {
-        client: this.getClient(),
+        organization: this.getOrganization(),
         position: 'right'
       }
     },
     methods: {
-      getClient() {
-        backendGet(`/staff/clients/${this.$route.params.id}`)
+      getOrganization() {
+        backendGet(`/staff/organizations/${this.$route.params.id}`)
           .then((response) => {
-            this.client = response.data.client
+            this.organization = response.data.organization
           })
           .catch((error) => {
             console.log(error);
@@ -35,12 +35,12 @@
           });
       },
       afterShow() {
-        this.$router.push("/clients");
-        this.$emit('edit-client');
+        this.$router.push("/organizations");
+        this.$emit('edit-organization');
       },
     },
     components: {
-      FormClient
+      FormOrganization
     }
   }
 </script>

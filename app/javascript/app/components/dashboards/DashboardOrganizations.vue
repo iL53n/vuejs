@@ -29,8 +29,8 @@
 <script>
   import { backendGet } from '../../api'
   import { backendDelete } from '../../api'
-  import CreateOrganization from '../forms/organizations/create_organization'
-  import EditOrganization from '../forms/organizations/edit_organization'
+  import CreateOrganization from '../forms/organizations/CreateOrganization'
+  import EditOrganization from '../forms/organizations/EditOrganization'
   import { Notify } from 'quasar'
 
   export default {

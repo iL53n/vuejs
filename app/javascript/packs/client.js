@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Client from '../app/app_client'
+import Client from '../app/AppClient'
 
 import router from '../../router'
 

@@ -6,34 +6,29 @@
       :position="position"
       transition-show="flip-right"
     )
-      form-organization(:organization="organization")
+      form-staff(:staff="staff")
 </template>
 
 <script>
-  import FormOrganization from './organization_form'
+  import FormStaff from './StaffForm'
 
   export default {
     data() {
       return {
-        organization: {
-          title: '',
-          form_of_owership: '',
-          tax_number: '',
-          reg_number: '',
-          client_ids: [],
-          clients: []
+        staff: {
+          email: '',
         },
         position: 'left',
       }
     },
     methods: {
       afterShow() {
-        this.$router.push("/organizations");
-        this.$emit('create-organization');
+        this.$router.push("/staffs");
+        this.$emit('create-staff');
       },
     },
     components: {
-      FormOrganization
+      FormStaff
     }
   }
 </script>

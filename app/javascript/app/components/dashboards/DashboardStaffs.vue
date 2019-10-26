@@ -28,8 +28,8 @@
   import { backendGet } from '../../api'
   import { backendPost } from '../../api'
   import { backendDelete } from '../../api'
-  import CreateStaff from '../forms/staffs/create_staff'
-  import EditStaff from '../forms/staffs/edit_staff'
+  import CreateStaff from '../forms/staffs/CreateStaff'
+  import EditStaff from '../forms/staffs/EditStaff'
   import { Notify } from 'quasar'
 
   export default {

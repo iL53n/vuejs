@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Staff from '../app/app_staff.vue'
+import Staff from '../app/AppStaff.vue'
 
 import router from '../../router'
 

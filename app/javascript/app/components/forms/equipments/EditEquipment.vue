@@ -6,25 +6,25 @@
       :position="position"
       transition-show="rotate"
     )
-      form-organization(:organization="organization")
+      form-equipment(:equipment="equipment")
 </template>
 
 <script>
-  import FormOrganization from './organization_form'
+  import FormEquipment from './EquipmentForm'
   import { backendGet } from "../../../api";
 
   export default {
     data() {
       return {
-        organization: this.getOrganization(),
+        equipment: this.getEquipment(),
         position: 'right'
       }
     },
     methods: {
-      getOrganization() {
-        backendGet(`/staff/organizations/${this.$route.params.id}`)
+      getEquipment() {
+        backendGet(`/staff/equipments/${this.$route.params.id}`)
           .then((response) => {
-            this.organization = response.data.organization
+            this.equipment = response.data.equipment
           })
           .catch((error) => {
             console.log(error);
@@ -35,12 +35,12 @@
           });
       },
       afterShow() {
-        this.$router.push("/organizations");
-        this.$emit('edit-organization');
+        this.$router.push("/equipments");
+        this.$emit('edit-equipment');
       },
     },
     components: {
-      FormOrganization
+      FormEquipment
     }
   }
 </script>

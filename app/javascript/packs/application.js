@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from '../app/app.vue'
+import App from '../app/App.vue'
 
 // import '../app/quasar'
 // import '../app/api/index' //backend
