@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Client from '../app/AppClient'
 
-import router from '../../router'
+import router from '../app/router'
 
 import '../app/quasar/styles/quasar.styl'
 import iconSet from 'quasar/icon-set/fontawesome-v5.js'

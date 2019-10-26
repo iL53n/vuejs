@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Staff from '../app/AppStaff.vue'
 
-import router from '../../router'
+import router from '../app/router'
+// import store from '../app/store'
 
 import '../app/quasar/styles/quasar.styl'
 import iconSet from 'quasar/icon-set/fontawesome-v5.js'
@@ -117,7 +118,8 @@ Vue.use(Quasar, {
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     render: h => h(Staff),
-    router
+    router,
+    // store
   }).$mount();
   document.body.appendChild(app.$el)
 });

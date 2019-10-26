@@ -6,18 +6,18 @@ Vue.use(VueRouter);
 // const Organizations = () => import(/* webpackChunkName: "DashboardOrganizations" */ '../javascript/app/components/dashboards/DashboardOrganizations');
 // const Equipments = () => import(/* webpackChunkName: "DashboardEquipments" */ '../javascript/app/components/dashboards/DashboardEquipment');
 // const Staffs = () => import(/* webpackChunkName: "DashboardStaffs" */ '../javascript/app/components/dashboards/DashboardStaffs');
-import Clients from '../javascript/app/components/dashboards/DashboardClients'
-import CreateClient from '../javascript/app/components/forms/clients/CreateClient'
-import EditClient from '../javascript/app/components/forms/clients/EditClient'
-import Organizations from '../javascript/app/components/dashboards/DashboardOrganizations'
-import CreateOrganization from '../javascript/app/components/forms/organizations/CreateOrganization'
-import EditOrganization from '../javascript/app/components/forms/organizations/EditOrganization'
-import Equipments from '../javascript/app/components/dashboards/DashboardEquipment'
-import CreateEquipment from '../javascript/app/components/forms/equipments/CreateEquipment'
-import EditEquipment from '../javascript/app/components/forms/equipments/EditEquipment'
-import Staffs from '../javascript/app/components/dashboards/DashboardStaffs'
-import CreateStaff from '../javascript/app/components/forms/staffs/CreateStaff'
-import EditStaff from '../javascript/app/components/forms/staffs/EditStaff'
+import Clients from '../components/dashboards/DashboardClients'
+import CreateClient from '../components/forms/clients/CreateClient'
+import EditClient from '../components/forms/clients/EditClient'
+import Organizations from '../components/dashboards/DashboardOrganizations'
+import CreateOrganization from '../components/forms/organizations/CreateOrganization'
+import EditOrganization from '../components/forms/organizations/EditOrganization'
+import Equipments from '../components/dashboards/DashboardEquipment'
+import CreateEquipment from '../components/forms/equipments/CreateEquipment'
+import EditEquipment from '../components/forms/equipments/EditEquipment'
+import Staffs from '../components/dashboards/DashboardStaffs'
+import CreateStaff from '../components/forms/staffs/CreateStaff'
+import EditStaff from '../components/forms/staffs/EditStaff'
 
 export default new VueRouter({
   mode: 'history',
