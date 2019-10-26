@@ -14,7 +14,7 @@ class Staff::EquipmentsController < ApplicationController
   def create
     @equipment = Equipment.new(equipment_params)
 
-    if @equipment.save
+    if @equipment.save!
       render json: @equipment, status: :created
     else
       render json: { errors: @equipment.errors }, status: :unprocessable_entity

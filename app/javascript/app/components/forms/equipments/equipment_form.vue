@@ -29,7 +29,7 @@
             filled
             ref="serial_number"
             label="Серийный номер *"
-            placeholder="Электронная почта"
+            placeholder="Серийный номер изделия"
             v-model="equipment.serial_number"
             type="text"
             lazy-rules
