@@ -12,36 +12,46 @@
             q-toolbar-title(align="middle")
               | Организации
         .q-pa-md
-          q-table(name="organizations", :title="title", :data="data", :columns="columns", row-key="id" no-data-label="Нет информации об организациях!")
-            template(v-slot:body-cell-delete="props")
-              q-td(:props="props")
-                q-btn(push color="white" text-color="primary" label="Удалить"  @click="deleteOrganization(props.row)" method="delete")
+          q-table(name="organizations", :title="title", :data="data", :columns="columns", row-key="id", no-data-label="Нет информации об организациях!")
+            template(v-slot:body-cell-clients="props")
+              q-td
+                | {{ props.row.clients.map(client => client.fullname).join(", ") }}
+            template(v-slot:body-cell-action="props")
+              q-td(align="right")
+                q-btn(push color="white" text-color="primary" label="Редактировать" @click="editOrganization(props.row)")
+                q-btn(push color="white" text-color="negative" label="Удалить"  @click="deleteOrganization(props.row)" method="delete")
+          q-page-sticky(expand position="bottom-left")
+            q-btn(push round color="primary" size="20px" @click="createOrganization()") +
 
-          create-organization(@add-organization="fetchOrganizations")
+          router-view(@edit-organization="fetchOrganizations" @create-organization="fetchOrganizations")
 </template>
 
 <script>
   import { backendGet } from '../../api'
   import { backendDelete } from '../../api'
-  import CreateOrganization from '../forms/create_organization'
+  import CreateOrganization from '../forms/organizations/create_organization'
+  import EditOrganization from '../forms/organizations/edit_organization'
   import { Notify } from 'quasar'
 
   export default {
     data () {
       return {
         columns: [
-          { name: 'id', align: 'center', label: 'ID', field: 'id', sortable: true },
-          { name: 'title', align: 'center', label: 'Наименование', field: 'title', sortable: true },
-          { name: 'form_of_owership', label: 'Форма собственности', field: 'form_of_owership', sortable: true },
-          { name: 'tax_number', label: 'ИНН', field: 'tax_number', sortable: true },
-          { name: 'reg_number', label: 'ОГРН', field: 'reg_number', sortable: true },
-          { name: 'delete', field: 'delete' }
+          { name: 'id', align: 'left', label: 'ID', field: 'id', sortable: true },
+          { name: 'form_of_owership', align: 'center', label: 'Форма собственности', field: 'form_of_owership', sortable: true },
+          { name: 'title', align: 'left', label: 'Наименование', field: 'title', sortable: true },
+          { name: 'clients', align: 'center', label: 'Клиент(-ы)', field: '', sortable: true },
+          { name: 'tax_number', align: 'center', label: 'ИНН', field: 'tax_number', sortable: true },
+          { name: 'reg_number', align: 'center', label: 'ОГРН', field: 'reg_number', sortable: true },
+          { name: 'action', align: 'center', field: ['edit', 'delete'] }
         ],
         data: [],
         title: '',
         loading: true,
+        errors: {}
       }
-      error: {}
+    },
+    computed: {
     },
     created() {
       this.fetchOrganizations();
@@ -54,7 +64,7 @@
             })
             .catch((error) => {
               console.log(error);
-              this.error = true
+              this.errors = true
             })
             .finally(() => {
               this.loading = false
@@ -62,21 +72,28 @@
       },
       deleteOrganization(obj) {
         backendDelete('/staff/organizations/', obj.id)
-          .then((response) => {
-            this.fetchOrganizations();
-            Notify.create({
-              message: "Организация '" + obj.title + "' удалена!",
-              color: 'negative'
+            .then((response) => {
+              this.fetchOrganizations();
+              Notify.create({
+                message: "Организация '" + obj.fullname + "' удалена!",
+                color: 'negative'
+              })
             })
-          })
-          .catch((error) => {
-            console.log(error);
-            this.error = true
-          });
+            .catch((error) => {
+              console.log(error);
+              this.errors = true
+            });
+      },
+      createOrganization() {
+        this.$router.push({ name: 'createOrganization'})
+      },
+      editOrganization(row) {
+        this.$router.push({ name: 'editOrganization', params: { id: row.id }})
       },
     },
     components: {
       CreateOrganization,
+      EditOrganization,
       Notify
     }
   }

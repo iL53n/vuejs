@@ -1,5 +1,11 @@
 class Client < ApplicationRecord
-  devise :database_authenticatable, :recoverable, :rememberable, :validatable
+  has_many :clients_organizations, dependent: :destroy
+  has_many :organizations, through: :clients_organizations
+
+  devise :database_authenticatable,
+         :recoverable,
+         :rememberable,
+         :validatable
   before_validation :set_password
 
   validates :fullname, :email, :phone, presence: true

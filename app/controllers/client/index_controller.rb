@@ -1,4 +1,4 @@
-class Client::WelcomeController < ApplicationController
+class Client::IndexController < ApplicationController
   include Accessible
 
   before_action :authenticate_client!

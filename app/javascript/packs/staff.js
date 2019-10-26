@@ -1,7 +1,9 @@
 import Vue from 'vue'
-import Staff from '../app/staff.vue'
+import Staff from '../app/app_staff.vue'
 
-import '../app/styles/quasar.styl'
+import router from '../../router'
+
+import '../app/quasar/styles/quasar.styl'
 import iconSet from 'quasar/icon-set/fontawesome-v5.js'
 import '@quasar/extras/fontawesome-v5/fontawesome-v5.css'
 import {
@@ -15,6 +17,7 @@ import {
   QFooter,
   QTab,
   QTabs,
+  QRouteTab,
   QTabPanel,
   QTabPanels,
   QDrawer,
@@ -23,6 +26,7 @@ import {
   QToolbar,
   QToolbarTitle,
   QBtn,
+  QBtnGroup,
   QImg,
   QBadge,
   QBreadcrumbs,
@@ -47,7 +51,9 @@ import {
   QDialog,
   QEditor,
   Notify,
-  Ripple
+  Ripple,
+  ClosePopup,
+  QSelect
 } from 'quasar'
 
 Vue.use(Quasar, {
@@ -63,6 +69,7 @@ Vue.use(Quasar, {
     QFooter,
     QTab,
     QTabs,
+    QRouteTab,
     QTabPanel,
     QTabPanels,
     QDrawer,
@@ -71,6 +78,7 @@ Vue.use(Quasar, {
     QToolbar,
     QToolbarTitle,
     QBtn,
+    QBtnGroup,
     QImg,
     QBadge,
     QBreadcrumbs,
@@ -93,10 +101,12 @@ Vue.use(Quasar, {
     QSpinner,
     QField,
     QDialog,
-    QEditor
+    QEditor,
+    QSelect
   },
   directives: {
-    Ripple
+    Ripple,
+    ClosePopup
   },
   plugins: {
     Notify
@@ -106,7 +116,8 @@ Vue.use(Quasar, {
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
-    render: h => h(Staff)
+    render: h => h(Staff),
+    router
   }).$mount();
   document.body.appendChild(app.$el)
 });
