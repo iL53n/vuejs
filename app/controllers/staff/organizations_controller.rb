@@ -4,7 +4,13 @@ class Staff::OrganizationsController < ApplicationController
   before_action :load_organization, only: %i[show destroy update]
 
   def index
-    render json: Organization.all
+    filter = params[:filter]
+
+    if filter.blank?
+      render json: Organization.all
+    else
+      render json: Organization.search(filter)
+    end
   end
 
   def show

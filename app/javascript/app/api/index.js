@@ -4,6 +4,10 @@ export function backendGet (url) {
   return axios.get(url);
 }
 
+export function backendGetWithFilter (url,filter) {
+  return axios.get(url + '?filter=' + filter);
+}
+
 export function backendPost (url, params) {
   return axios.post(url, params);
 }

@@ -139,12 +139,12 @@
       updateOrganization() {
         backendPatch(`/staff/organizations/${this.organization.id}`, this.organization)
           .then((response) => {
-            this.$emit('edit-organization');
             Notify.create({
               message: "Организация '" + this.organization.fullname + "' отредактирована!",
               color: 'positive',
               position: 'right'
             });
+            this.$emit('edit-organization');
             this.organization = {};
             this.errors = {};
 
@@ -164,12 +164,12 @@
       addOrganization() {
         backendPost('/staff/organizations', this.organization)
           .then((response) => {
-            this.$emit('add-organization');
             Notify.create({
               message: "Организация '" + this.organization.fullname + "' создана!",
               color: 'positive',
               position: 'left'
             });
+            this.$emit('add-organization');
             this.organization = { title: '' };
             this.errors = {};
 

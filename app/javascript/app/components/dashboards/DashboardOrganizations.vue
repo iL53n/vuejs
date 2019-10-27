@@ -7,12 +7,21 @@
       div(v-if="error")
         p Error!
       div(v-else)
+        organization-filter
         q-page-sticky(expand position="top")
           q-toolbar(class="bg-secondary text-white")
             q-toolbar-title(align="middle")
               | Организации
         .q-pa-md
-          q-table(name="organizations", :title="title", :data="data", :columns="columns", row-key="id", no-data-label="Нет информации об организациях!")
+          q-table(
+            ref="table"
+            name="organizations"
+            @request="onRequest"
+            :title="title"
+            :data="data"
+            :columns="columns"
+            row-key="id"
+            no-data-label="Нет информации об организациях!")
             template(v-slot:body-cell-clients="props")
               q-td
                 | {{ props.row.clients.map(client => client.fullname).join(", ") }}
@@ -23,14 +32,15 @@
           q-page-sticky(expand position="bottom-left")
             q-btn(push round color="primary" size="20px" @click="createOrganization()") +
 
-          router-view(@edit-organization="fetchOrganizations" @create-organization="fetchOrganizations")
+          router-view(@edit-organization="fetchOrganizations('')" @create-organization="fetchOrganizations('')")
 </template>
 
 <script>
-  import { backendGet } from '../../api'
+  import { backendGetWithFilter } from '../../api'
   import { backendDelete } from '../../api'
   import CreateOrganization from '../forms/organizations/CreateOrganization'
   import EditOrganization from '../forms/organizations/EditOrganization'
+  import OrganizationFilter from '../forms/organizations/OrganizationFilter'
   import { Notify } from 'quasar'
 
   export default {
@@ -48,17 +58,28 @@
         data: [],
         title: '',
         loading: true,
-        errors: {}
+        errors: {},
       }
     },
     computed: {
+      filter() {
+        return this.$store.state.orgMod.filter
+      }
+    },
+    watch: {
+      filter() {
+        this.refresh()
+      }
     },
     created() {
-      this.fetchOrganizations();
+      this.fetchOrganizations('')
     },
     methods: {
-      fetchOrganizations() {
-        backendGet('/staff/organizations')
+      refresh() {
+        this.$refs.table.requestServerInteraction()
+      },
+      fetchOrganizations(filter) {
+        backendGetWithFilter('/staff/organizations', filter)
             .then((response) => {
               this.data = response.data.organizations
             })
@@ -70,10 +91,13 @@
               this.loading = false
             });
       },
+      onRequest() {
+        this.fetchOrganizations(this.filter)
+      },
       deleteOrganization(obj) {
         backendDelete('/staff/organizations/', obj.id)
             .then((response) => {
-              this.fetchOrganizations();
+              this.fetchOrganizations('');
               Notify.create({
                 message: "Организация '" + obj.fullname + "' удалена!",
                 color: 'negative'
@@ -85,15 +109,16 @@
             });
       },
       createOrganization() {
-        this.$router.push({ name: 'createOrganization'})
+        this.$router.push({ name: 'createOrganization'});
       },
       editOrganization(row) {
-        this.$router.push({ name: 'editOrganization', params: { id: row.id }})
+        this.$router.push({ name: 'editOrganization', params: { id: row.id }});
       },
     },
     components: {
       CreateOrganization,
       EditOrganization,
+      OrganizationFilter,
       Notify
     }
   }

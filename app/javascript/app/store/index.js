@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
+import orgMod from './modules/organizations'
 
 Vue.use(Vuex);
 
@@ -7,6 +9,8 @@ export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: {},
-  plugins: {}
+  modules: {
+    orgMod
+  },
+  plugins: [createPersistedState()]
 })
