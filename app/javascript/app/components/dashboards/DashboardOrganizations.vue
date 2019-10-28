@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    div(v-if="organizationsList.loading")
+    div(v-if="loading")
       q-page-container(align="middle")
         q-spinner(color="primary" size="7em" :thickness="10")
     div(v-else)
@@ -17,11 +17,12 @@
             ref="table"
             name="organizations"
             @request="onRequest"
-            :title="organizationsList.title"
-            :data="organizationsList.data"
-            :columns="organizationsList.columns"
-            :pagination.sync="organizationsList.pagination"
+            :title="title"
+            :data="data"
+            :columns="columns"
+            :pagination.sync="pagination"
             :rows-per-page-options="[10, 25, 100]"
+            :filter="this.filter"
             binary-state-sort
             row-key="id"
             no-data-label="Нет информации об организациях!")
@@ -49,22 +50,12 @@
   export default {
     data () {
       return {
-        organizationsList: {
-          columns: [
-            { name: 'id', align: 'left', label: 'ID', field: 'id', sortable: true },
-            { name: 'form_of_owership', align: 'center', label: 'Форма собственности', field: 'form_of_owership', sortable: true },
-            { name: 'title', align: 'left', label: 'Наименование', field: 'title', sortable: true },
-            { name: 'clients', align: 'center', label: 'Клиент(-ы)', field: '', sortable: true },
-            { name: 'tax_number', align: 'center', label: 'ИНН', field: 'tax_number', sortable: true },
-            { name: 'reg_number', align: 'center', label: 'ОГРН', field: 'reg_number', sortable: true },
-            { name: 'action', align: 'center', field: ['edit', 'delete'] }
-          ],
-          data: [],
-          pagination: {},
-          //title: '',
-          loading: true,
-          errors: {},
-        }
+        columns: [],
+        data: [],
+        pagination: {},
+        title: '',
+        loading: true,
+        errors: {},
       }
     },
     computed: {
@@ -79,7 +70,7 @@
     },
     created() {
       this.onRequest({
-        pagination: this.organizationsList.pagination,
+        pagination: this.pagination,
         filter: this.filter
       })
     },
@@ -91,17 +82,20 @@
       refresh() {
         this.$refs.table.requestServerInteraction()
       },
-      fetchOrganizations(page, rowsPerPage, sort, desc, filter, scopes) {
-        backendGetWithParams('/staff/organizations', { page, rowsPerPage, sort, desc, filter, scopes })
+      fetchOrganizations(page, rowsPerPage, sortBy, descending, filter) {
+        backendGetWithParams('/staff/organizations', { page, rowsPerPage, sortBy, descending, filter })
             .then((response) => {
-              this.organizationsList.data = response.data.organizations
+              this.data = response.data.data.map(i => i.attributes)
+              this.pagination = response.data.meta.pagination
+              this.columns = response.data.meta.columns
+              console.log(response.data)
             })
             .catch((error) => {
               console.log(error);
-              this.organizationsList.errors = true
+              this.errors = true
             })
             .finally(() => {
-              this.organizationsList.loading = false
+              this.loading = false
             });
       },
       deleteOrganization(obj) {
@@ -115,7 +109,7 @@
             })
             .catch((error) => {
               console.log(error);
-              this.organizationsList.errors = true
+              this.errors = true
             });
       },
       createOrganization() {
@@ -131,12 +125,12 @@
       OrganizationFilter,
       Notify
     },
-    subscriptions: {
-      OrganizationsChannel: {
-        received(data) {
-          this.refresh()
-        }
-      }
-    }
+    // subscriptions: {
+    //   OrganizationsChannel: {
+    //     received(data) {
+    //       this.refresh()
+    //     }
+    //   }
+    // }
   }
 </script>
