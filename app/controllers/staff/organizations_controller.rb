@@ -4,13 +4,16 @@ class Staff::OrganizationsController < ApplicationController
   before_action :load_organization, only: %i[show destroy update]
 
   def index
-    filter = params[:filter]
+    scope = Organization.all
+    @manager = ::QueryBuilder.new(params, scope)
 
-    if filter.blank?
-      render json: Organization.all # на проде - ЗЛО
-    else
-      render json: Organization.search(filter)
-    end
+    # filter = params[:filter]
+    #
+    # if filter.blank?
+    #   render json: Organization.all # на проде - ЗЛО
+    # else
+    #   render json: Organization.search(filter)
+    # end
   end
 
   def show

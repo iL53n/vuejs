@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    div(v-if="loading")
+    div(v-if="organizationsList.loading")
       q-page-container(align="middle")
         q-spinner(color="primary" size="7em" :thickness="10")
     div(v-else)
@@ -17,9 +17,12 @@
             ref="table"
             name="organizations"
             @request="onRequest"
-            :title="title"
-            :data="data"
-            :columns="columns"
+            :title="organizationsList.title"
+            :data="organizationsList.data"
+            :columns="organizationsList.columns"
+            :pagination.sync="organizationsList.pagination"
+            :rows-per-page-options="[10, 25, 100]"
+            binary-state-sort
             row-key="id"
             no-data-label="Нет информации об организациях!")
             template(v-slot:body-cell-clients="props")
@@ -36,7 +39,7 @@
 </template>
 
 <script>
-  import { backendGetWithFilter } from '../../api'
+  import { backendGetWithParams } from '../../api'
   import { backendDelete } from '../../api'
   import CreateOrganization from '../forms/organizations/CreateOrganization'
   import EditOrganization from '../forms/organizations/EditOrganization'
@@ -46,19 +49,22 @@
   export default {
     data () {
       return {
-        columns: [
-          { name: 'id', align: 'left', label: 'ID', field: 'id', sortable: true },
-          { name: 'form_of_owership', align: 'center', label: 'Форма собственности', field: 'form_of_owership', sortable: true },
-          { name: 'title', align: 'left', label: 'Наименование', field: 'title', sortable: true },
-          { name: 'clients', align: 'center', label: 'Клиент(-ы)', field: '', sortable: true },
-          { name: 'tax_number', align: 'center', label: 'ИНН', field: 'tax_number', sortable: true },
-          { name: 'reg_number', align: 'center', label: 'ОГРН', field: 'reg_number', sortable: true },
-          { name: 'action', align: 'center', field: ['edit', 'delete'] }
-        ],
-        data: [],
-        title: '',
-        loading: true,
-        errors: {},
+        organizationsList: {
+          columns: [
+            { name: 'id', align: 'left', label: 'ID', field: 'id', sortable: true },
+            { name: 'form_of_owership', align: 'center', label: 'Форма собственности', field: 'form_of_owership', sortable: true },
+            { name: 'title', align: 'left', label: 'Наименование', field: 'title', sortable: true },
+            { name: 'clients', align: 'center', label: 'Клиент(-ы)', field: '', sortable: true },
+            { name: 'tax_number', align: 'center', label: 'ИНН', field: 'tax_number', sortable: true },
+            { name: 'reg_number', align: 'center', label: 'ОГРН', field: 'reg_number', sortable: true },
+            { name: 'action', align: 'center', field: ['edit', 'delete'] }
+          ],
+          data: [],
+          pagination: {},
+          //title: '',
+          loading: true,
+          errors: {},
+        }
       }
     },
     computed: {
@@ -72,27 +78,31 @@
       }
     },
     created() {
-      this.fetchOrganizations('')
+      this.onRequest({
+        pagination: this.organizationsList.pagination,
+        filter: this.filter
+      })
     },
     methods: {
+      onRequest(props) {
+        let { page, rowsPerPage, sortBy, descending } = props.pagination;
+        this.fetchOrganizations(page, rowsPerPage, sortBy, descending, this.filter)
+      },
       refresh() {
         this.$refs.table.requestServerInteraction()
       },
-      fetchOrganizations(filter) {
-        backendGetWithFilter('/staff/organizations', filter)
+      fetchOrganizations(page, rowsPerPage, sort, desc, filter, scopes) {
+        backendGetWithParams('/staff/organizations', { page, rowsPerPage, sort, desc, filter, scopes })
             .then((response) => {
-              this.data = response.data.organizations
+              this.organizationsList.data = response.data.organizations
             })
             .catch((error) => {
               console.log(error);
-              this.errors = true
+              this.organizationsList.errors = true
             })
             .finally(() => {
-              this.loading = false
+              this.organizationsList.loading = false
             });
-      },
-      onRequest() {
-        this.fetchOrganizations(this.filter)
       },
       deleteOrganization(obj) {
         backendDelete('/staff/organizations/', obj.id)
@@ -105,7 +115,7 @@
             })
             .catch((error) => {
               console.log(error);
-              this.errors = true
+              this.organizationsList.errors = true
             });
       },
       createOrganization() {
