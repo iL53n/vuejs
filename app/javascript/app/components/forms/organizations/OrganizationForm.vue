@@ -88,7 +88,8 @@
 
   export default {
     props: {
-      organization: {}
+      organization: {
+      }
     },
     data() {
       return {

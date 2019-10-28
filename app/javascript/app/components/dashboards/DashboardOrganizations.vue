@@ -53,7 +53,7 @@
         columns: [],
         data: [],
         pagination: {},
-        title: '',
+        // title: '',
         loading: true,
         errors: {},
       }
@@ -85,9 +85,9 @@
       fetchOrganizations(page, rowsPerPage, sortBy, descending, filter) {
         backendGetWithParams('/staff/organizations', { page, rowsPerPage, sortBy, descending, filter })
             .then((response) => {
-              this.data = response.data.data.map(i => i.attributes)
-              this.pagination = response.data.meta.pagination
-              this.columns = response.data.meta.columns
+              this.data = response.data.data.map(i => i.attributes);
+              // this.pagination = response.data.meta.pagination; Поправить
+              this.columns = response.data.meta.columns;
               console.log(response.data)
             })
             .catch((error) => {
