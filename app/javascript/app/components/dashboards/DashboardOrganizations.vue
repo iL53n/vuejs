@@ -125,12 +125,12 @@
       OrganizationFilter,
       Notify
     },
-    // subscriptions: {
-    //   OrganizationsChannel: {
-    //     received(data) {
-    //       this.refresh()
-    //     }
-    //   }
-    // }
+    subscriptions: {
+      OrganizationsChannel: {
+        received(data) {
+          this.refresh()
+        }
+      }
+    }
   }
 </script>
