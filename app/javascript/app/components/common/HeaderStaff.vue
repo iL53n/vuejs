@@ -35,9 +35,18 @@
       return {
         loading: false,
         error: false,
-        user: {},
         userClass: 'staff',
         message: ''
+      }
+    },
+    computed: {
+      user: {
+        get() {
+          return this.$store.state.currentUser
+        },
+        set(value) {
+          this.$store.commit('updateCurrentUser', value)
+        }
       }
     },
     created() {
@@ -46,13 +55,13 @@
     methods: {
       fetchUser() {
         let vm = this;
-        backendGet('/staff/index/user')
+        backendGet('/'+ this.userClass +"/index/user")
             .then((response) => {
               vm.user = response.data.user
             })
             .catch((error) => {
               console.log(error);
-              this.error = true
+              vm.error = true
             })
             .finally(() => {
               vm.loading = false

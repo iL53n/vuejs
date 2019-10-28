@@ -6,8 +6,14 @@ import orgMod from './modules/organizations'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    currentUser: null
+  },
+  mutations: {
+    updateCurrentUser(state, value) {
+      state.currentUser = value
+    }
+  },
   actions: {},
   modules: {
     orgMod

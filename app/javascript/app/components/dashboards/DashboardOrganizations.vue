@@ -99,7 +99,7 @@
             .then((response) => {
               this.fetchOrganizations('');
               Notify.create({
-                message: "Организация '" + obj.fullname + "' удалена!",
+                message: "Организация '" + obj.title + "' удалена!",
                 color: 'negative'
               })
             })

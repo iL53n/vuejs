@@ -6,9 +6,11 @@ class Staff::OrganizationsController < ApplicationController
   def index
     filter = params[:filter]
 
-    filter.blank? ? @organizations = Organization.all : @organizations = Organization.search(filter)
-
-    render json: @organizations
+    if filter.blank?
+      render json: Organization.all # на проде - ЗЛО
+    else
+      render json: Organization.search(filter)
+    end
   end
 
   def show

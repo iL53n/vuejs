@@ -140,7 +140,7 @@
         backendPatch(`/staff/organizations/${this.organization.id}`, this.organization)
           .then((response) => {
             Notify.create({
-              message: "Организация '" + this.organization.fullname + "' отредактирована!",
+              message: "Организация '" + this.organization.title + "' отредактирована!",
               color: 'positive',
               position: 'right'
             });
@@ -165,7 +165,7 @@
         backendPost('/staff/organizations', this.organization)
           .then((response) => {
             Notify.create({
-              message: "Организация '" + this.organization.fullname + "' создана!",
+              message: "Организация '" + this.organization.title + "' создана!",
               color: 'positive',
               position: 'left'
             });
