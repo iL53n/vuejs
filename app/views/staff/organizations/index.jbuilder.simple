@@ -1,0 +1,12 @@
+json.table do
+  json.columns OrganizationPresenter::COLUMNS
+  presenter =  OrganizationPresenter.new
+
+  json.data @organizations.resources do |resource|
+    json.extract! presenter.present(resource), *presenter.columns_keys
+  end
+
+  json.set! :pagination do
+    json.extract! @organizations.pagination, :page, :rowsPerPage, :rowsNumber
+  end
+end
