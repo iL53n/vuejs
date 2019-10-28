@@ -120,6 +120,13 @@
       EditOrganization,
       OrganizationFilter,
       Notify
+    },
+    subscriptions: {
+      OrganizationsChannel: {
+        received(data) {
+          this.refresh()
+        }
+      }
     }
   }
 </script>
