@@ -86,7 +86,9 @@
         backendGetWithParams('/staff/organizations', { page, rowsPerPage, sortBy, descending, filter })
             .then((response) => {
               this.data = response.data.data.map(i => i.attributes);
-              // this.pagination = response.data.meta.pagination; Поправить
+              this.$set(this.pagination, 'page', response.data.meta.pagination.page)
+              this.$set(this.pagination, 'rowsPerPage', response.data.meta.pagination.rowsPerPage)
+              this.$set(this.pagination, 'rowsNumber', response.data.meta.pagination.rowsNumber)
               this.columns = response.data.meta.columns;
               console.log(response.data)
             })

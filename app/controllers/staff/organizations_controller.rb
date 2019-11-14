@@ -6,23 +6,12 @@ class Staff::OrganizationsController < ApplicationController
   layout false
 
   def index
-    # scope = Organization.all
-    # @organizations = ::QueryBuilder.new(params, scope)
-
     find_organizations = FindOrganizations.new(Organization.all, params)
     @organizations = find_organizations.call(search_permitted_params)
     org_presenter_meta = OrganizationPresenter.new().meta
     meta = find_organizations.meta.merge(org_presenter_meta)
 
     render json: OrganizationSerializer.new(@organizations, { meta: meta }).serialized_json
-
-    # filter = params[:filter]
-    #
-    # if filter.blank?
-    #   render json: Organization.all # на проде - ЗЛО
-    # else
-    #   render json: Organization.search(filter)
-    # end
   end
 
   def show
