@@ -6,7 +6,7 @@ class OrganizationPresenter < BasePresenter
     { name: :id, align: 'left', label: 'ID', field: :id, sortable: true },
     { name: :form_of_owership, align: 'center', label: 'Форма собственности', field: :form_of_owership, sortable: true },
     { name: :title, align: 'left', label: 'Наименование', field: :title, sortable: true },
-    { name: :clients, align: 'center', label: 'Клиент(-ы)', field: '', sortable: true },
+    { name: :clients, align: 'center', label: 'Клиент(-ы)', field: '' },
     { name: :tax_number, align: 'center', label: 'ИНН', field: :tax_number, sortable: true },
     { name: :reg_number, align: 'center', label: 'ОГРН', field: :reg_number, sortable: true },
     { name: :action, label: '', align: 'center' }

@@ -4,7 +4,7 @@
       q-page-container(align="middle")
         q-spinner(color="primary" size="7em" :thickness="10")
     div(v-else)
-      div(v-if="error")
+      div(v-if="errors")
         p Error!
       div(v-else)
         organization-filter
@@ -53,9 +53,9 @@
         columns: [],
         data: [],
         pagination: {},
-        // title: '',
+        title: '',
         loading: true,
-        errors: {},
+        errors: false,
       }
     },
     computed: {
@@ -76,7 +76,9 @@
     },
     methods: {
       onRequest(props) {
+        console.log(props.pagination.descending)
         let { page, rowsPerPage, sortBy, descending } = props.pagination;
+
         this.fetchOrganizations(page, rowsPerPage, sortBy, descending, this.filter)
       },
       refresh() {
@@ -86,11 +88,15 @@
         backendGetWithParams('/staff/organizations', { page, rowsPerPage, sortBy, descending, filter })
             .then((response) => {
               this.data = response.data.data.map(i => i.attributes);
-              this.$set(this.pagination, 'page', response.data.meta.pagination.page)
-              this.$set(this.pagination, 'rowsPerPage', response.data.meta.pagination.rowsPerPage)
-              this.$set(this.pagination, 'rowsNumber', response.data.meta.pagination.rowsNumber)
+              this.$set(this.pagination, 'page', response.data.meta.pagination.page);
+              this.$set(this.pagination, 'rowsPerPage', response.data.meta.pagination.rowsPerPage);
+              this.$set(this.pagination, 'rowsNumber', response.data.meta.pagination.rowsNumber);
+              this.$set(this.pagination, 'sortBy', response.data.meta.pagination.sortBy);
+              this.$set(this.pagination, 'descending', response.data.meta.pagination.descending);
+
+              console.log(this.pagination)
+
               this.columns = response.data.meta.columns;
-              console.log(response.data)
             })
             .catch((error) => {
               console.log(error);

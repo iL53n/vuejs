@@ -1,5 +1,5 @@
 class FindOrganizations
-  attr_accessor :initial_scope #, :pagination, :filter
+  attr_accessor :initial_scope
 
   def initialize(initial_scope, params)
     @initial_scope = initial_scope
@@ -9,7 +9,7 @@ class FindOrganizations
   end
 
   def call(params)
-    scoped = initial_scope
+    # scoped = initial_scope
     scoped = search(initial_scope)
     scoped = sort(scoped)
     scoped = paginate(scoped)
@@ -29,8 +29,8 @@ class FindOrganizations
 
   def sort(scoped)
     @pagination[:sortBy] = @params[:sortBy] || :id
-    @pagination[:descending] = (@params[:descending].to_s.downcase == "true").to_s
-    scoped.order(@pagination[:sortBy] => (@pagination[:descending] == "true" ? :desc : :asc))
+    @pagination[:descending] = @params[:descending] || 'true'
+    scoped.order(@pagination[:sortBy] => (@pagination[:descending] == 'true' ? :desc : :asc))
   end
 
   def paginate(scoped)
