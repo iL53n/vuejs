@@ -76,7 +76,8 @@
     },
     methods: {
       onRequest(props) {
-        console.log(props.pagination.descending)
+        console.log(props.pagination.descending); //undefined => false
+
         let { page, rowsPerPage, sortBy, descending } = props.pagination;
 
         this.fetchOrganizations(page, rowsPerPage, sortBy, descending, this.filter)
@@ -88,13 +89,13 @@
         backendGetWithParams('/staff/organizations', { page, rowsPerPage, sortBy, descending, filter })
             .then((response) => {
               this.data = response.data.data.map(i => i.attributes);
-              this.$set(this.pagination, 'page', response.data.meta.pagination.page);
-              this.$set(this.pagination, 'rowsPerPage', response.data.meta.pagination.rowsPerPage);
-              this.$set(this.pagination, 'rowsNumber', response.data.meta.pagination.rowsNumber);
-              this.$set(this.pagination, 'sortBy', response.data.meta.pagination.sortBy);
-              this.$set(this.pagination, 'descending', response.data.meta.pagination.descending);
+              this.pagination.page = response.data.meta.pagination.page;
+              this.pagination.rowsPerPage = response.data.meta.pagination.rowsPerPage;
+              this.pagination.rowsNumber = response.data.meta.pagination.rowsNumber;
+              // this.pagination.sortBy = response.data.meta.pagination.sortBy;
+              // this.pagination.descending = response.data.meta.pagination.descending;
 
-              console.log(this.pagination)
+              console.log(this.pagination.descending); //true => false
 
               this.columns = response.data.meta.columns;
             })
