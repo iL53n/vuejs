@@ -6,25 +6,25 @@
       :position="position"
       transition-show="rotate"
     )
-      form-equipment(:equipment="equipment")
+      form-client(:client="client")
 </template>
 
 <script>
-  import FormEquipment from './equipment_form'
+  import FormClient from './ClientForm'
   import { backendGet } from "../../../api";
 
   export default {
     data() {
       return {
-        equipment: this.getEquipment(),
+        client: this.getClient(),
         position: 'right'
       }
     },
     methods: {
-      getEquipment() {
-        backendGet(`/staff/equipments/${this.$route.params.id}`)
+      getClient() {
+        backendGet(`/staff/clients/${this.$route.params.id}`)
           .then((response) => {
-            this.equipment = response.data.equipment
+            this.client = response.data.client
           })
           .catch((error) => {
             console.log(error);
@@ -35,12 +35,12 @@
           });
       },
       afterShow() {
-        this.$router.push("/equipments");
-        this.$emit('edit-equipment');
+        this.$router.push("/clients");
+        this.$emit('edit-client');
       },
     },
     components: {
-      FormEquipment
+      FormClient
     }
   }
 </script>

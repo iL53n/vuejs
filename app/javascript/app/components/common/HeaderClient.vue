@@ -20,11 +20,7 @@
           )
 
       q-tabs(align="left")
-        //q-route-tab(to="/index" name="root" label="Главная")
-        q-route-tab(to="/organizations" name="organizations" label="Организации")
-        q-route-tab(to="/clients" name="clients" label="Клиенты")
         q-route-tab(to="/equipments" name="equipments" label="Оборудование")
-        q-route-tab(to="/staffs" name="staffs" label="Сотрудники")
 </template>
 
 <script>
@@ -35,9 +31,18 @@
       return {
         loading: false,
         error: false,
-        user: {},
-        userClass: 'staff',
+        userClass: 'client',
         message: ''
+      }
+    },
+    computed: {
+      user: {
+        get() {
+          return this.$store.state.currentUser
+        },
+        set(value) {
+          this.$store.commit('updateCurrentUser', value)
+        }
       }
     },
     created() {
@@ -46,13 +51,13 @@
     methods: {
       fetchUser() {
         let vm = this;
-        backendGet('/staff/index/user')
+        backendGet('/'+ this.userClass +"/index/user")
             .then((response) => {
               vm.user = response.data.user
             })
             .catch((error) => {
               console.log(error);
-              this.error = true
+              vm.error = true
             })
             .finally(() => {
               vm.loading = false

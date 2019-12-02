@@ -110,7 +110,7 @@
       getOrganizations() {
         backendGet('/staff/organizations')
           .then((response) => {
-            this.organizations = response.data.organizations
+            this.organizations = response.data.data.map(i => i.attributes);
           })
           .catch((error) => {
             console.log(error);

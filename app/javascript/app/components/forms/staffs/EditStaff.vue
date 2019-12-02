@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import FormStaff from './staff_form'
+  import FormStaff from './StaffForm'
   import { backendGet } from "../../../api";
 
   export default {

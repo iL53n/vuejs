@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import FormOrganization from './organization_form'
+  import FormOrganization from './OrganizationForm'
   import { backendGet } from "../../../api";
 
   export default {
@@ -24,7 +24,7 @@
       getOrganization() {
         backendGet(`/staff/organizations/${this.$route.params.id}`)
           .then((response) => {
-            this.organization = response.data.organization
+            this.organization = response.data
           })
           .catch((error) => {
             console.log(error);

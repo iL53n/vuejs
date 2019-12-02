@@ -13,10 +13,10 @@
 </template>
 
 <script>
-  import HeaderComponent from './components/common/header_staff'
-  import DashboardOrganizations from './components/dashboards/dashboard_organizations'
-  import DashboardClients from './components/dashboards/dashboard_clients'
-  import FooterComponent from './components/common/footer'
+  import HeaderComponent from './components/common/HeaderStaff'
+  import DashboardOrganizations from './components/dashboards/DashboardOrganizations'
+  import DashboardClients from './components/dashboards/DashboardClients'
+  import FooterComponent from './components/common/Footer'
 
   export default {
     data () {

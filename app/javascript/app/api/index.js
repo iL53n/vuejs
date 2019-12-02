@@ -4,6 +4,10 @@ export function backendGet (url) {
   return axios.get(url);
 }
 
+export function backendGetWithParams (url, params) {
+  return axios.get(url, { params: params });
+}
+
 export function backendPost (url, params) {
   return axios.post(url, params);
 }
