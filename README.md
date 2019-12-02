@@ -1,3 +1,17 @@
+## Скриншоты проекта
+[OrganizationsBoard](https://prnt.sc/q57fxs)
+
+[Create](https://prnt.sc/q57gbn)
+
+[Edit](https://prnt.sc/q57gna)
+
+[ClientsBoard](https://prnt.sc/q57i01)
+
+
+
+
+
+
 # Rails + VueJS: современный фронтенд. Онлайн-интенсив.
 ![](https://i.ibb.co/CMQwLh3/Rails-Vue-JS.jpg)
 ## :mortar_board: Требования к участникам
